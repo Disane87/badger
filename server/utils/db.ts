@@ -1,4 +1,5 @@
 import type { Trap, Hit } from './types'
+import { emitTrapEvent } from './events'
 
 /**
  * Tiny persistence layer on top of Nitro's FS storage.
@@ -30,6 +31,7 @@ export async function createTrap(data: Omit<Trap, 'id' | 'createdAt' | 'hitCount
     ...data
   }
   await store().setItem(`${TRAP_PREFIX}:${trap.id}`, trap)
+  emitTrapEvent({ type: 'trap:created', data: trap })
   return trap
 }
 
@@ -39,6 +41,7 @@ export async function getTrap(id: string): Promise<Trap | null> {
 
 export async function updateTrap(trap: Trap): Promise<Trap> {
   await store().setItem(`${TRAP_PREFIX}:${trap.id}`, trap)
+  emitTrapEvent({ type: 'trap:updated', data: trap })
   return trap
 }
 
@@ -59,6 +62,7 @@ export async function deleteTrap(id: string): Promise<void> {
   await store().removeItem(`${TRAP_PREFIX}:${id}`)
   const hitKeys = await store().getKeys(`${HIT_PREFIX}:${id}`)
   await Promise.all(hitKeys.map((k) => store().removeItem(k)))
+  emitTrapEvent({ type: 'trap:deleted', data: { id } })
 }
 
 export async function recordHit(trapId: string, data: Omit<Hit, 'id' | 'trapId'>): Promise<Hit> {
@@ -69,7 +73,11 @@ export async function recordHit(trapId: string, data: Omit<Hit, 'id' | 'trapId'>
   if (trap) {
     trap.hitCount = (trap.hitCount || 0) + 1
     await store().setItem(`${TRAP_PREFIX}:${trapId}`, trap)
+    // Push the hit (for live feed / detail rows) and the new hitCount (for the
+    // dashboard's per-trap counter) — both reactively, no client-side polling.
+    emitTrapEvent({ type: 'trap:updated', data: trap })
   }
+  emitTrapEvent({ type: 'hit', data: hit })
   return hit
 }
 

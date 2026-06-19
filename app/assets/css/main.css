@@ -277,6 +277,47 @@ details[open] summary { margin-bottom: 10px; }
 .back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
 .back:hover { color: var(--honey-deep); }
 
+/* ---------- modal ---------- */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 80;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 48px 20px;
+  background: rgba(46, 36, 21, 0.42);
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+  overflow-y: auto;
+}
+.modal {
+  width: 100%; max-width: 680px; margin: auto;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex; flex-direction: column;
+  max-height: calc(100vh - 96px);
+}
+.modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 26px; border-bottom: 1px solid var(--border);
+}
+.modal-head h2 { margin: 0; }
+.modal-x {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--surface-2);
+  color: var(--ink-soft); cursor: pointer; transition: all .15s ease;
+}
+.modal-x:hover { color: var(--ink); border-color: var(--border-strong); background: var(--honey-soft); }
+.modal-body { padding: 22px 26px; overflow-y: auto; }
+.modal-foot {
+  display: flex; justify-content: flex-end; gap: 12px;
+  padding: 18px 26px; border-top: 1px solid var(--border);
+}
+
+.modal-enter-active, .modal-leave-active { transition: opacity .2s ease; }
+.modal-enter-active .modal, .modal-leave-active .modal { transition: transform .22s cubic-bezier(.2, .8, .2, 1), opacity .22s ease; }
+.modal-enter-from, .modal-leave-to { opacity: 0; }
+.modal-enter-from .modal, .modal-leave-to .modal { transform: translateY(16px) scale(.98); opacity: 0; }
+
 /* responsive */
 @media (max-width: 760px) {
   h1 { font-size: 30px; }
@@ -285,4 +326,6 @@ details[open] summary { margin-bottom: 10px; }
   .kv { grid-template-columns: 1fr; }
   .trap-grid { grid-template-columns: 1fr; }
   .builder { grid-template-columns: 1fr; }
+  .modal-overlay { padding: 16px; }
+  .modal { max-height: calc(100vh - 32px); }
 }

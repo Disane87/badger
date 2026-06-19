@@ -135,8 +135,10 @@ Drei Layer kombiniert, `background-attachment: fixed`:
 
 ## 5. Iconografie
 
-- **Quelle:** ausschließlich **Lucide** über `@nuxt/icon` → `<Icon name="lucide:<name>" />`.
-- **Keine Emojis** irgendwo in der UI.
+- **Quelle:** **Lucide** über `@nuxt/icon` → `<Icon name="lucide:<name>" />`. Einzige
+  Ausnahme: **`circle-flags`** für Länder-Flaggen in der Location-Spalte
+  (`circle-flags:<iso2>`). Beide Collections lokal gebündelt (kein CDN, siehe §13).
+- **Keine Emojis** irgendwo in der UI (Flaggen sind SVG-Icons, keine Emojis).
 - Icons erben `currentColor` und Größe `1em`; vertikale Ausrichtung `vertical-align: -0.135em`.
 - **Icon-Mapping (verbindlich):**
 
@@ -163,6 +165,7 @@ Drei Layer kombiniert, `background-attachment: fixed`:
 | Fehler                   | `lucide:triangle-alert` |
 | Mensch / Bot             | `lucide:user-round` / `lucide:bot` |
 | Unique IPs               | `lucide:fingerprint` |
+| Länder-Flagge (Location) | `circle-flags:<iso2>` (Kleinschreibung; Fallback `lucide:globe`) |
 | Refresh                  | `lucide:refresh-cw` (lädt: Klasse `.spin`) |
 | Zurück                   | `lucide:arrow-left` |
 | Custom-HTML-Modus        | `lucide:code` |
@@ -297,7 +300,11 @@ Jede Komponente mit Default + relevanten States (hover/focus/disabled/active/emp
    aufklappbare Tag-Liste. Refresh-Button **nur** bei `clone`.
 5. **KPI-Reihe (4):** Total hits · Unique IPs · Likely humans (mint) · Likely bots (coral).
 6. **Section-Title „Hits"** (zeigt „refreshing…" beim Poll) + Empty-State (`satellite-dish`)
-   oder **Treffer-Tabelle**. Zeile klickbar → klappt Detail auf:
+   oder **Treffer-Tabelle**. Location-Spalte mit Länder-Flagge (`circle-flags:<iso2>`,
+   Globus-Fallback). Zeile klickbar → klappt Detail auf:
+   - **Karten-Embed** (nur wenn `geo.lat`/`geo.lon`): OpenStreetMap-`iframe` (Höhe 200px,
+     gerundet, `--border`) mit Marker; unten links Standort-Pille (dunkel, `blur`):
+     Flagge + „City, Country · ISP".
    - Zwei `.kv`-Spalten (Zeitstempel, Method/Path, IP-Kette, Referer, Accept-Language, UA,
      Bot-Grund | Browser, OS, Device, Engine, Country, City/Region, ISP/Org, ASN).
    - Aufklappbare Roh-Header-Box.
@@ -305,7 +312,8 @@ Jede Komponente mit Default + relevanten States (hover/focus/disabled/active/emp
 
 ### 8.3 Live-Feed `/feed`
 1. Header: H1 „Live **feed**" + Lead; rechts Ghost-Button „Refresh" (`refresh-cw`).
-2. Empty-State (`radar`) oder **Tabelle**: When · Trap (→ Detail) · IP · Location · Client · Verdict.
+2. Empty-State (`radar`) oder **Tabelle**: When · Trap (→ Detail) · IP · Location (mit
+   Länder-Flagge, Globus-Fallback) · Client · Verdict.
 3. Zeilen klickbar → Trap-Detail. Auto-Refresh alle 8s.
 
 ---
@@ -362,8 +370,12 @@ Jede Komponente mit Default + relevanten States (hover/focus/disabled/active/emp
 - **Hydration-Stabilität:**
   - Relative Zeiten (`Date.now()`) tragen `data-allow-mismatch` am Element.
   - Origin/Host via `useRequestURL()` (SSR+Client identisch), nicht `window.location`.
-- **Icons:** `@nuxt/icon` v2 (Nuxt 4) + lokal gebündelte `@iconify-json/lucide`
-  (`icon.serverBundle.collections: ['lucide']`) → offline, kein CDN.
+- **Icons:** `@nuxt/icon` v2 (Nuxt 4) + lokal gebündelte `@iconify-json/lucide` **und
+  `@iconify-json/circle-flags`** (`icon.serverBundle.collections: ['lucide', 'circle-flags']`)
+  → offline, kein CDN. Länder-Flaggen via `circle-flags:<iso2>` (Kleinschreibung).
+- **Karten-Embed:** OpenStreetMap-`iframe`
+  (`openstreetmap.org/export/embed.html?bbox=…&marker=…`) ist die **einzige** Außen-Anfrage
+  der UI zur Laufzeit. URL stets in `computed`/Script bauen (kein `new URL` im Template).
 - **Config-/Modul-Änderungen** erfordern Dev-Server-Neustart (kein HMR dafür).
 
 ---
@@ -373,7 +385,12 @@ Jede Komponente mit Default + relevanten States (hover/focus/disabled/active/emp
 - Authentifizierung fürs Dashboard (derzeit keine), empfohlen vor Deployment.
 - Bearbeiten bestehender Traps (nur anlegen/löschen vorhanden).
 - Dark-Mode-Variante (das Theme ist bewusst hell; ein Dark-Pendant wäre additiv).
-- Karten-/Geo-Visualisierung der Treffer, CSV/JSON-Export, Charts.
+- CSV/JSON-Export, Charts.
+
+> **Umgesetzt (war zuvor Out of Scope):** Karten-/Geo-Visualisierung der Treffer —
+> Länder-Flaggen (`circle-flags`) in der Location-Spalte (Hit-Tabelle & Live-Feed) sowie
+> ein OpenStreetMap-Embed mit Marker + Standort-Pille in der aufgeklappten Hit-Zeile
+> (nur wenn `geo.lat`/`geo.lon` vorhanden; sonst Globus-Fallback, keine Karte). Siehe §8.2.
 
 ---
 

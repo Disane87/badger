@@ -11,27 +11,10 @@ const host = computed(() => {
 })
 const totalHits = computed(() => (traps.value || []).reduce((a, t) => a + (t.hitCount || 0), 0))
 
-const showForm = ref(false)
-const submitting = ref(false)
-const error = ref('')
+// modal state — create when editing is null, edit when set
+const modalOpen = ref(false)
+const editing = ref<Trap | null>(null)
 const toast = ref('')
-
-const form = reactive({
-  name: '',
-  type: 'pixel' as 'pixel' | 'redirect' | 'decoy' | 'clone' | 'custom',
-  target: '',
-  note: '',
-  slug: '',
-  // custom preview
-  title: '',
-  description: '',
-  image: '',
-  siteName: '',
-  humanAction: 'redirect' as 'redirect' | 'html',
-  bodyHtml: ''
-})
-
-const needsTarget = computed(() => form.type === 'redirect' || form.type === 'clone')
 
 const TYPE_META: Record<string, { icon: string; label: string }> = {
   pixel: { icon: 'lucide:eye', label: 'Tracking pixel' },
@@ -42,61 +25,39 @@ const TYPE_META: Record<string, { icon: string; label: string }> = {
 }
 const typeIcon = (t: string) => TYPE_META[t]?.icon || 'lucide:link'
 
-function resetForm() {
-  form.name = ''
-  form.type = 'pixel'
-  form.target = ''
-  form.note = ''
-  form.slug = ''
-  form.title = ''
-  form.description = ''
-  form.image = ''
-  form.siteName = ''
-  form.humanAction = 'redirect'
-  form.bodyHtml = ''
-  error.value = ''
+function openCreate() {
+  editing.value = null
+  modalOpen.value = true
+}
+function openEdit(t: Trap, ev: Event) {
+  ev.stopPropagation()
+  editing.value = t
+  modalOpen.value = true
 }
 
-async function createTrap() {
-  error.value = ''
-  if (!form.name.trim()) { error.value = 'Name is required'; return }
-  if (needsTarget.value && !/^https?:\/\//i.test(form.target)) {
-    error.value = 'This trap type needs a valid http(s) target URL'
-    return
-  }
-  if (form.type === 'custom') {
-    if (!form.title.trim() && !form.description.trim() && !form.image.trim()) {
-      error.value = 'Add at least a preview title, description or image'
-      return
-    }
-    if (form.humanAction === 'redirect' && !/^https?:\/\//i.test(form.target)) {
-      error.value = 'Redirect action needs a valid http(s) target URL'
-      return
-    }
-    if (form.humanAction === 'html' && !form.bodyHtml.trim()) {
-      error.value = 'HTML action needs some custom HTML to show'
-      return
-    }
-  }
-  submitting.value = true
-  try {
-    await $fetch('/api/traps', { method: 'POST', body: { ...form } })
-    resetForm()
-    showForm.value = false
-    await refresh()
-    flash('Trap created')
-  } catch (e: any) {
-    error.value = e?.data?.statusMessage || e?.message || 'Failed to create trap'
-  } finally {
-    submitting.value = false
-  }
+/** Replace-or-insert a trap in the local list, keeping newest-first order. */
+function upsertTrap(t: Trap) {
+  const list = traps.value ? [...traps.value] : []
+  const i = list.findIndex((x) => x.id === t.id)
+  if (i === -1) list.unshift(t)
+  else list[i] = t
+  list.sort((a, b) => b.createdAt - a.createdAt)
+  traps.value = list
+}
+
+function onSaved(t: Trap) {
+  upsertTrap(t)
+  modalOpen.value = false
+  flash(editing.value ? 'Trap updated' : 'Trap created')
+  editing.value = null
 }
 
 async function remove(t: Trap, ev: Event) {
   ev.stopPropagation()
   if (!confirm(`Delete trap "${t.name}" and all its hits?`)) return
+  // optimistic; the SSE 'trap:deleted' will confirm for every other client
+  traps.value = (traps.value || []).filter((x) => x.id !== t.id)
   await $fetch(`/api/traps/${t.id}`, { method: 'DELETE' })
-  await refresh()
   flash('Trap deleted')
 }
 
@@ -106,6 +67,15 @@ async function copyUrl(t: Trap, ev: Event) {
   await navigator.clipboard.writeText(url)
   flash('URL copied')
 }
+
+// Live reactivity: traps appear, update (hit counts!) and disappear in real time.
+useLiveEvents((e) => {
+  if (e.type === 'trap:created' || e.type === 'trap:updated') {
+    upsertTrap(e.data)
+  } else if (e.type === 'trap:deleted') {
+    traps.value = (traps.value || []).filter((x) => x.id !== e.data.id)
+  }
+})
 
 let toastTimer: any
 function flash(msg: string) {
@@ -122,8 +92,8 @@ function flash(msg: string) {
         <h1>Your <span class="accent">honey traps</span></h1>
         <p class="lead">Friendly-looking links that quietly note down everyone who opens them — and exactly how.</p>
       </div>
-      <button class="btn" @click="showForm = !showForm">
-        <Icon :name="showForm ? 'lucide:x' : 'lucide:plus'" /> {{ showForm ? 'Close' : 'New trap' }}
+      <button class="btn" @click="openCreate">
+        <Icon name="lucide:plus" /> New trap
       </button>
     </div>
 
@@ -149,107 +119,6 @@ function flash(msg: string) {
         <div class="l">Tracking host</div>
       </div>
     </div>
-
-    <!-- create form -->
-    <Transition name="fade">
-      <div v-if="showForm" class="panel pad" style="margin-top: 24px;">
-        <h2>Set a new trap</h2>
-        <div class="field">
-          <label>Name <span class="faint">(just for you)</span></label>
-          <input v-model="form.name" placeholder="e.g. Q3-Budget.pdf shared with vendor X" @keyup.enter="createTrap" />
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>What should it do?</label>
-            <select v-model="form.type">
-              <option value="pixel">Tracking pixel — invisible 1×1 image for emails/docs</option>
-              <option value="redirect">Redirect link — logs, then forwards to a real URL</option>
-              <option value="clone">Clone &amp; redirect — copies a target's link preview, then forwards</option>
-              <option value="custom">Custom preview — design your own fake link preview</option>
-              <option value="decoy">Decoy page — logs, then shows a friendly "loading" page</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Custom slug <span class="faint">(optional)</span></label>
-            <input v-model="form.slug" placeholder="auto from name" />
-          </div>
-        </div>
-        <div v-if="needsTarget" class="field">
-          <label>{{ form.type === 'clone' ? 'Target to clone & forward to' : 'Redirect target' }}</label>
-          <input v-model="form.target" placeholder="https://real-destination.example.com/login" />
-          <div v-if="form.type === 'clone'" class="faint" style="font-size:13px;margin-top:8px">
-            On create, hon.ey fetches this URL's OpenGraph/Twitter preview so the trap link looks identical when shared.
-          </div>
-        </div>
-
-        <!-- custom preview builder -->
-        <template v-if="form.type === 'custom'">
-          <div class="builder">
-            <div class="builder-fields">
-              <div class="field">
-                <label>Preview title</label>
-                <input v-model="form.title" placeholder="Shared document · Q3 Budget" />
-              </div>
-              <div class="field">
-                <label>Preview description</label>
-                <textarea v-model="form.description" rows="2" placeholder="You have been granted access to this confidential file." />
-              </div>
-              <div class="field">
-                <label>Preview image URL</label>
-                <input v-model="form.image" placeholder="https://…/cover.png" />
-              </div>
-              <div class="field">
-                <label>Site name <span class="faint">(optional)</span></label>
-                <input v-model="form.siteName" placeholder="Google Drive" />
-              </div>
-            </div>
-            <div class="builder-preview">
-              <label>Live preview</label>
-              <div class="og-card">
-                <img v-if="form.image" :src="form.image" alt="preview" class="og-img" referrerpolicy="no-referrer" />
-                <div v-else class="og-img og-img--empty"><Icon name="lucide:image" /></div>
-                <div class="og-body">
-                  <div class="og-site">{{ form.siteName || (host) }}</div>
-                  <div class="og-title">{{ form.title || 'Your preview title' }}</div>
-                  <div class="og-desc">{{ form.description || 'Your preview description shows up here.' }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field">
-            <label>When a human opens the link…</label>
-            <div class="seg">
-              <button type="button" class="seg-btn" :class="{ on: form.humanAction === 'redirect' }" @click="form.humanAction = 'redirect'">
-                <Icon name="lucide:corner-up-right" /> Redirect them
-              </button>
-              <button type="button" class="seg-btn" :class="{ on: form.humanAction === 'html' }" @click="form.humanAction = 'html'">
-                <Icon name="lucide:code" /> Show custom HTML
-              </button>
-            </div>
-          </div>
-          <div v-if="form.humanAction === 'redirect'" class="field">
-            <label>Redirect target</label>
-            <input v-model="form.target" placeholder="https://real-destination.example.com/login" />
-          </div>
-          <div v-else class="field">
-            <label>Custom HTML page</label>
-            <textarea v-model="form.bodyHtml" rows="6" class="mono" placeholder="<h1>Access granted</h1>&#10;<p>Loading your document…</p>" />
-            <div class="faint" style="font-size:13px;margin-top:8px">
-              Shown to real visitors. Unfurlers still see the preview above. Raw HTML — it's your own content.
-            </div>
-          </div>
-        </template>
-        <div class="field">
-          <label>Note <span class="faint">— where did you plant it?</span></label>
-          <textarea v-model="form.note" rows="2" placeholder="Pasted into the leaked-credentials doc on the test box" />
-        </div>
-        <p v-if="error" class="form-error"><Icon name="lucide:triangle-alert" /> {{ error }}</p>
-        <button class="btn" :disabled="submitting" @click="createTrap">
-          <Icon name="lucide:plus" /> {{ submitting ? 'Setting trap…' : 'Create trap' }}
-        </button>
-      </div>
-    </Transition>
 
     <!-- list -->
     <div class="section-title">All traps</div>
@@ -281,13 +150,16 @@ function flash(msg: string) {
           <span class="hit-pill" :class="{ live: t.hitCount > 0 }">
             <Icon :name="t.hitCount > 0 ? 'lucide:target' : 'lucide:minus'" /> {{ t.hitCount }} {{ t.hitCount === 1 ? 'hit' : 'hits' }}
           </span>
-          <div class="row" style="gap:10px; align-items:center;">
+          <div class="row" style="gap:8px; align-items:center;">
             <span class="faint" style="font-size:12.5px" data-allow-mismatch>{{ relTime(t.createdAt) }}</span>
-            <button class="btn danger sm" @click="remove(t, $event)"><Icon name="lucide:trash-2" /></button>
+            <button class="btn ghost sm" title="Edit trap" @click="openEdit(t, $event)"><Icon name="lucide:pencil" /></button>
+            <button class="btn danger sm" title="Delete trap" @click="remove(t, $event)"><Icon name="lucide:trash-2" /></button>
           </div>
         </div>
       </article>
     </div>
+
+    <TrapModal :open="modalOpen" :trap="editing" @close="modalOpen = false" @saved="onSaved" />
 
     <Transition name="fade">
       <div v-if="toast" class="toast"><Icon name="lucide:check" /> {{ toast }}</div>

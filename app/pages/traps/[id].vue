@@ -76,10 +76,19 @@ function flash(msg: string) {
   toastTimer = setTimeout(() => (toast.value = ''), 1800)
 }
 
-// Auto-refresh every 10s while viewing
-let poll: any
-onMounted(() => { poll = setInterval(() => refresh(), 10000) })
-onBeforeUnmount(() => clearInterval(poll))
+// Live: hits for this trap appear instantly, edits reflect, deletion bounces home.
+useLiveEvents((e) => {
+  if (!data.value) return
+  if (e.type === 'hit' && e.data.trapId === id) {
+    if (!data.value.hits.some((h) => h.id === e.data.id)) {
+      data.value.hits = [e.data, ...data.value.hits]
+    }
+  } else if (e.type === 'trap:updated' && e.data.id === id) {
+    data.value.trap = e.data
+  } else if (e.type === 'trap:deleted' && e.data.id === id) {
+    navigateTo('/')
+  }
+})
 </script>
 
 <template>
