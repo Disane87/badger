@@ -1,0 +1,24 @@
+# Nuxt
+.nuxt
+.output
+.data
+dist
+
+# deps
+node_modules
+
+# logs
+*.log
+npm-debug.log*
+
+# env
+.env
+
+# misc
+.DS_Store
+
+# local tooling / agent state
+.claude
+.remember
+.playwright-mcp
+*.png

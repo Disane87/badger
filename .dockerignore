@@ -1,0 +1,25 @@
+# build artifacts & deps (rebuilt inside the image)
+node_modules
+.nuxt
+.output
+.data
+dist
+
+# vcs & ci
+.git
+.github
+.gitignore
+
+# local & editor
+.env
+*.log
+.DS_Store
+.vscode
+.idea
+
+# docs / non-runtime
+README.md
+DESIGN_PRD.md
+.remember
+.playwright-mcp
+*.png
