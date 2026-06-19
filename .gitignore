@@ -24,3 +24,6 @@ npm-debug.log*
 .remember
 .playwright-mcp
 *.png
+
+# keep the landing page social card (needs png for social scrapers)
+!landing/assets/og.png
