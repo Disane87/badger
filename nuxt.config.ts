@@ -37,6 +37,12 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  vite: {
+    optimizeDeps: {
+      include: ['@vue/devtools-core', '@vue/devtools-kit']
+    }
+  },
+
   runtimeConfig: {
     // Override via NUXT_GEO_LOOKUP=false to disable outbound IP geo enrichment
     geoLookup: true,
