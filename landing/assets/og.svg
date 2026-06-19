@@ -1,69 +1,191 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <defs>
     <linearGradient id="page" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fdf7ec"/>
-      <stop offset="1" stop-color="#fbeed6"/>
+      <stop offset="0" stop-color="#fff8e9"/>
+      <stop offset="1" stop-color="#f7e7c5"/>
     </linearGradient>
-    <radialGradient id="bloomTR" cx="0.92" cy="-0.1" r="0.65">
+    <radialGradient id="bloomR" cx="0.78" cy="0.5" r="0.55">
       <stop offset="0" stop-color="#ffd166" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#ffd166" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="bloomBL" cx="-0.05" cy="0.95" r="0.6">
-      <stop offset="0" stop-color="#f2a007" stop-opacity="0.18"/>
+      <stop offset="0.55" stop-color="#f2a007" stop-opacity="0.15"/>
       <stop offset="1" stop-color="#f2a007" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="markBg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffd166"/>
-      <stop offset="1" stop-color="#f2a007"/>
+    <radialGradient id="vignetteTL" cx="0.05" cy="0.05" r="0.7">
+      <stop offset="0" stop-color="#e8d4a8" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#e8d4a8" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="fadeLeft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="white" stop-opacity="0"/>
+      <stop offset="0.10" stop-color="white" stop-opacity="0.0"/>
+      <stop offset="0.55" stop-color="white" stop-opacity="1"/>
+      <stop offset="1" stop-color="white" stop-opacity="1"/>
     </linearGradient>
-    <pattern id="dots" x="0" y="0" width="26" height="26" patternUnits="userSpaceOnUse">
-      <circle cx="13" cy="13" r="1.1" fill="#e7d4ad" fill-opacity="0.55"/>
-    </pattern>
+    <mask id="badgerFade">
+      <rect x="500" y="-200" width="800" height="1030" fill="url(#fadeLeft)"/>
+    </mask>
   </defs>
 
   <rect width="1200" height="630" fill="url(#page)"/>
-  <rect width="1200" height="630" fill="url(#dots)"/>
-  <rect width="1200" height="630" fill="url(#bloomTR)"/>
-  <rect width="1200" height="630" fill="url(#bloomBL)"/>
+  <rect width="1200" height="630" fill="url(#bloomR)"/>
+  <rect width="1200" height="630" fill="url(#vignetteTL)"/>
 
-  <!-- Brand row -->
-  <g transform="translate(72, 72)">
-    <g transform="translate(0, 0)">
-      <rect width="80" height="80" rx="18" fill="url(#markBg)"/>
-      <g transform="translate(8, 8) scale(1)">
-        <path d="M16 18 L20 14 L24 22 Z" fill="#1c160e"/>
-        <path d="M48 18 L44 14 L40 22 Z" fill="#1c160e"/>
-        <path d="M32 16 C 19 16, 14 26, 14 36 C 14 47, 22 54, 32 54 C 42 54, 50 47, 50 36 C 50 26, 45 16, 32 16 Z" fill="#1c160e"/>
-        <path d="M32 17 C 29 22, 28.5 28, 28.5 34 C 28.5 39, 29.5 44, 32 50 C 34.5 44, 35.5 39, 35.5 34 C 35.5 28, 35 22, 32 17 Z" fill="#fffaf0"/>
-        <ellipse cx="22.5" cy="33" rx="2" ry="2.6" fill="#fffaf0"/>
-        <circle cx="22.5" cy="33.6" r="1" fill="#1c160e"/>
-        <ellipse cx="41.5" cy="33" rx="2" ry="2.6" fill="#fffaf0"/>
-        <circle cx="41.5" cy="33.6" r="1" fill="#1c160e"/>
-        <ellipse cx="32" cy="46" rx="3.2" ry="2.2" fill="#1c160e"/>
-      </g>
+  <!-- ====== LOW-POLY BADGER — proper Meles meles pattern ======
+       The defining badger feature: TWO DIAGONAL DARK STRIPES running
+       continuously from the snout UP THROUGH the eyes UP to the ear
+       roots, flanking a CENTRAL WHITE STRIPE. Cheeks are white. Without
+       these connected diagonals the face reads as a panda. -->
+  <g mask="url(#badgerFade)">
+    <g transform="translate(600, 30) scale(2.1)">
+
+      <!-- ===== BASE CREAM WASH (so any seam shows as cream not page bg) ===== -->
+      <polygon points="40,18 200,18 230,140 215,210 175,255 65,255 25,210 10,140"
+               fill="#F5F2E5"/>
+
+      <!-- ===== LEFT EAR (outer light grey) ===== -->
+      <polygon points="40,18 75,38 28,50" fill="#DDD9CB"/>
+      <polygon points="40,18 28,50 22,62" fill="#C5C0B0"/>
+      <polygon points="28,50 22,62 45,55" fill="#989282"/>
+      <!-- LEFT EAR (inner cavity, very dark — feeds into top of dark stripe) -->
+      <polygon points="52,30 75,38 60,58" fill="#1c1812"/>
+      <polygon points="52,30 60,58 48,55" fill="#0a0805"/>
+
+      <!-- ===== RIGHT EAR (mirror) ===== -->
+      <polygon points="200,18 165,38 212,50" fill="#DDD9CB"/>
+      <polygon points="200,18 212,50 218,62" fill="#C5C0B0"/>
+      <polygon points="212,50 218,62 195,55" fill="#989282"/>
+      <polygon points="188,30 165,38 180,58" fill="#1c1812"/>
+      <polygon points="188,30 180,58 192,55" fill="#0a0805"/>
+
+      <!-- ===== LEFT DARK STRIPE — diagonal band from ear root to snout.
+           Wider at top (where it meets the inner ear), tapering inward as
+           it descends through the eye to the upper muzzle. Connected to
+           ear interior at top and to the snout dark mass at bottom. ===== -->
+      <polygon points="50,30 92,38 75,75" fill="#2C2820"/>
+      <polygon points="50,30 75,75 55,80" fill="#15110C"/>
+      <polygon points="92,38 75,75 95,90" fill="#3D382E"/>
+      <polygon points="75,75 95,90 85,125" fill="#2C2820"/>
+      <polygon points="55,80 75,75 65,130" fill="#15110C"/>
+      <polygon points="75,75 85,125 65,130" fill="#2C2820"/>
+      <polygon points="85,125 95,90 105,150" fill="#3D382E"/>
+      <polygon points="65,130 85,125 80,180" fill="#15110C"/>
+      <polygon points="85,125 105,150 95,180" fill="#2C2820"/>
+      <polygon points="80,180 85,125 95,180" fill="#3D382E"/>
+      <polygon points="80,180 95,180 105,195" fill="#2C2820"/>
+
+      <!-- ===== RIGHT DARK STRIPE (mirror) ===== -->
+      <polygon points="190,30 148,38 165,75" fill="#2C2820"/>
+      <polygon points="190,30 165,75 185,80" fill="#15110C"/>
+      <polygon points="148,38 165,75 145,90" fill="#3D382E"/>
+      <polygon points="165,75 145,90 155,125" fill="#2C2820"/>
+      <polygon points="185,80 165,75 175,130" fill="#15110C"/>
+      <polygon points="165,75 155,125 175,130" fill="#2C2820"/>
+      <polygon points="155,125 145,90 135,150" fill="#3D382E"/>
+      <polygon points="175,130 155,125 160,180" fill="#15110C"/>
+      <polygon points="155,125 135,150 145,180" fill="#2C2820"/>
+      <polygon points="160,180 155,125 145,180" fill="#3D382E"/>
+      <polygon points="160,180 145,180 135,195" fill="#2C2820"/>
+
+      <!-- ===== CENTRAL WHITE STRIPE — wide at top between ears, tapering
+           toward the muzzle. Sits BETWEEN the two dark diagonal stripes. ===== -->
+      <polygon points="92,38 120,12 148,38" fill="#FFFFFA"/>
+      <polygon points="92,38 148,38 120,68" fill="#F2EFE3"/>
+      <polygon points="92,38 120,68 95,90" fill="#FAF7EC"/>
+      <polygon points="148,38 120,68 145,90" fill="#FAF7EC"/>
+      <polygon points="95,90 120,68 145,90" fill="#FFFFFA"/>
+      <polygon points="95,90 145,90 120,130" fill="#F2EFE3"/>
+      <polygon points="95,90 120,130 105,150" fill="#FAF7EC"/>
+      <polygon points="145,90 120,130 135,150" fill="#FAF7EC"/>
+      <polygon points="105,150 120,130 135,150" fill="#FFFFFA"/>
+      <polygon points="105,150 135,150 120,195" fill="#F2EFE3"/>
+
+      <!-- ===== EYES — almond white + black pupil + catchlight, sitting
+           INSIDE the left/right dark stripes ===== -->
+      <ellipse cx="78" cy="105" rx="7" ry="3.6" fill="#F0EDE3"/>
+      <ellipse cx="78" cy="105" rx="3.4" ry="3.2" fill="#0a0805"/>
+      <circle cx="79" cy="104" r="1.1" fill="#FFFFFA"/>
+
+      <ellipse cx="162" cy="105" rx="7" ry="3.6" fill="#F0EDE3"/>
+      <ellipse cx="162" cy="105" rx="3.4" ry="3.2" fill="#0a0805"/>
+      <circle cx="163" cy="104" r="1.1" fill="#FFFFFA"/>
+
+      <!-- ===== LEFT CHEEK — white with subtle low-poly shading. Sits
+           OUTSIDE the left dark stripe (to the viewer's left of it). ===== -->
+      <polygon points="22,62 45,55 55,80" fill="#E5E1D2"/>
+      <polygon points="22,62 55,80 15,110" fill="#FAF7EC"/>
+      <polygon points="55,80 65,130 15,110" fill="#F2EFE3"/>
+      <polygon points="15,110 65,130 10,170" fill="#DDD9CB"/>
+      <polygon points="65,130 80,180 10,170" fill="#FAF7EC"/>
+      <polygon points="10,170 80,180 25,210" fill="#E5E1D2"/>
+      <polygon points="80,180 105,195 95,225" fill="#FAF7EC"/>
+      <polygon points="80,180 95,225 65,255" fill="#F2EFE3"/>
+      <polygon points="25,210 80,180 65,255" fill="#DDD9CB"/>
+
+      <!-- ===== RIGHT CHEEK (mirror) ===== -->
+      <polygon points="218,62 195,55 185,80" fill="#E5E1D2"/>
+      <polygon points="218,62 185,80 225,110" fill="#FAF7EC"/>
+      <polygon points="185,80 175,130 225,110" fill="#F2EFE3"/>
+      <polygon points="225,110 175,130 230,170" fill="#DDD9CB"/>
+      <polygon points="175,130 160,180 230,170" fill="#FAF7EC"/>
+      <polygon points="230,170 160,180 215,210" fill="#E5E1D2"/>
+      <polygon points="160,180 135,195 145,225" fill="#FAF7EC"/>
+      <polygon points="160,180 145,225 175,255" fill="#F2EFE3"/>
+      <polygon points="215,210 160,180 175,255" fill="#DDD9CB"/>
+
+      <!-- ===== SNOUT — the dark mass at the bottom where both dark stripes
+           converge. Visible black nose tip in the middle. ===== -->
+      <polygon points="105,195 135,195 120,210" fill="#3D382E"/>
+      <polygon points="95,180 105,195 90,215" fill="#56504A"/>
+      <polygon points="145,180 135,195 150,215" fill="#56504A"/>
+      <polygon points="105,195 90,215 120,210" fill="#2C2820"/>
+      <polygon points="135,195 120,210 150,215" fill="#2C2820"/>
+      <polygon points="90,215 120,210 115,232" fill="#15110C"/>
+      <polygon points="150,215 120,210 125,232" fill="#15110C"/>
+      <polygon points="115,232 120,210 125,232" fill="#0a0805"/>
+      <!-- bridge from snout sides to chin -->
+      <polygon points="90,215 115,232 95,225" fill="#3D382E"/>
+      <polygon points="150,215 125,232 145,225" fill="#3D382E"/>
+      <polygon points="95,225 115,232 105,250" fill="#56504A"/>
+      <polygon points="145,225 125,232 135,250" fill="#56504A"/>
+      <polygon points="115,232 125,232 120,245" fill="#15110C"/>
+      <polygon points="105,250 115,232 120,245" fill="#3D382E"/>
+      <polygon points="135,250 125,232 120,245" fill="#3D382E"/>
+
+      <!-- ===== LOWER JAW (white chin under the snout) ===== -->
+      <polygon points="65,255 95,225 105,250" fill="#F2EFE3"/>
+      <polygon points="175,255 145,225 135,250" fill="#F2EFE3"/>
+      <polygon points="65,255 105,250 120,260" fill="#FAF7EC"/>
+      <polygon points="175,255 135,250 120,260" fill="#FAF7EC"/>
+      <polygon points="105,250 135,250 120,260" fill="#E5E1D2"/>
+      <polygon points="105,250 120,260 120,245" fill="#F2EFE3"/>
+      <polygon points="135,250 120,260 120,245" fill="#F2EFE3"/>
     </g>
-    <text x="100" y="56" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="52" fill="#2e2415" letter-spacing="-1">Badger</text>
-    <g transform="translate(290, 30)">
-      <rect width="118" height="32" rx="16" fill="#fff1cf" stroke="#e7d4ad" stroke-width="1"/>
-      <text x="59" y="22" font-family="'Courier New', monospace" font-weight="700" font-size="14" fill="#8a5300" text-anchor="middle" letter-spacing="2">TRACKER</text>
+  </g>
+
+  <!-- ====== TEXT LAYER ====== -->
+
+  <!-- Brand row: wordmark + TRACKER pill -->
+  <g transform="translate(80, 96)">
+    <text font-family="'Fraunces', Georgia, 'Times New Roman', serif" font-weight="600" font-size="44" fill="#2a1f10" letter-spacing="-1.4">Badger</text>
+    <g transform="translate(195, -18)">
+      <rect width="96" height="26" rx="13" fill="#fff1cf" stroke="#e7d4ad" stroke-width="1"/>
+      <text x="48" y="18" font-family="'Space Mono', 'Courier New', monospace" font-weight="700" font-size="12" fill="#8a5300" text-anchor="middle" letter-spacing="2.2">TRACKER</text>
     </g>
   </g>
 
   <!-- Headline -->
-  <g transform="translate(72, 240)">
-    <text font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="92" fill="#2e2415" letter-spacing="-2">
-      <tspan x="0" y="0">Turn any link into a</tspan>
-      <tspan x="0" y="110" fill="#d98309">tripwire.</tspan>
+  <g transform="translate(80, 230)">
+    <text font-family="'Fraunces', Georgia, 'Times New Roman', serif" font-weight="600" font-size="72" fill="#2a1f10" letter-spacing="-2.0">
+      <tspan x="0" y="0">Turn any link</tspan>
+      <tspan x="0" y="84">into a </tspan><tspan font-style="italic" fill="#d98309">tripwire</tspan><tspan font-style="normal" fill="#d98309">.</tspan>
     </text>
   </g>
 
   <!-- Subtitle -->
-  <text x="72" y="490" font-family="Arial, sans-serif" font-size="28" fill="#6f5f45">A self-hosted URL honeypot. See who opens your links,</text>
-  <text x="72" y="528" font-family="Arial, sans-serif" font-size="28" fill="#6f5f45">and exactly how.</text>
+  <text x="80" y="430" font-family="'Figtree', Arial, sans-serif" font-size="22" fill="#5a4a30">Innocent-looking links that quietly note down</text>
+  <text x="80" y="460" font-family="'Figtree', Arial, sans-serif" font-size="22" fill="#5a4a30">everyone who opens them, and exactly how.</text>
 
-  <!-- Bullets -->
-  <g transform="translate(72, 580)">
-    <circle cx="6" cy="-6" r="5" fill="#f2a007"/>
-    <text x="20" y="0" font-family="Arial, sans-serif" font-weight="600" font-size="18" fill="#6f5f45">Deep metadata capture  ·  Bot detection  ·  Open source</text>
+  <!-- Footer eyebrow -->
+  <g transform="translate(80, 572)">
+    <text font-family="'Space Mono', 'Courier New', monospace" font-weight="700" font-size="13" fill="#8a5300" letter-spacing="2.4">SELF-HOSTED  ·  CANARY TOKEN  ·  OPEN SOURCE</text>
   </g>
 </svg>
