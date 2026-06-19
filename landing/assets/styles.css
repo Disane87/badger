@@ -173,6 +173,7 @@ svg { flex-shrink: 0; }
 .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .gallery figure { margin: 0; }
 .gallery .frame { box-shadow: var(--shadow); transition: transform .2s ease, box-shadow .2s ease; }
+.gallery .frame img { aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
 .gallery figure:hover .frame { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .gallery figcaption { margin-top: 11px; font-size: 14px; color: var(--ink-soft); text-align: center; }
 .gallery figcaption b { color: var(--ink); font-weight: 700; }
