@@ -26,10 +26,12 @@ link and watch the metadata roll in.
 > [!WARNING]
 > ## 🔒 This is a defensive tool, so keep it on a leash
 > hon.ey is for **authorized** security testing and monitoring of assets *you own or are allowed to
-> watch*. The dashboard has **no authentication** and the `custom` trap renders **raw HTML**, so
-> never expose it to the open internet. Run it behind a VPN, basic auth, or an IP allowlist. Using
-> tracking or cloaked links against third parties without consent may break privacy law (GDPR &
-> friends), and impersonating a brand you don't control is plain phishing. Be a good human. 🙏
+> watch*. The dashboard API is gated by a shared token (see
+> [Authentication](#-authentication)) and the `custom` trap renders **raw HTML**, so still treat
+> the dashboard as sensitive: keep the token strong, run it behind a VPN or IP allowlist if you
+> can, and never reuse the token elsewhere. Using tracking or cloaked links against third parties
+> without consent may break privacy law (GDPR & friends), and impersonating a brand you don't
+> control is plain phishing. Be a good human. 🙏
 
 
 # ✨ What Can This Thing Do?
@@ -91,6 +93,7 @@ default branch and on version tags. Just pull and run:
 docker run -d --name honey \
   -p 3000:3000 \
   -e NUXT_PUBLIC_BASE_URL=https://honey.example.com \
+  -e HONEY_DASHBOARD_TOKEN="$(openssl rand -hex 32)" \
   -v honey-data:/app/.data \
   ghcr.io/disane87/honey:latest
 ```
@@ -141,10 +144,93 @@ A couple of environment variables, that's all:
 |----------|---------|--------------|
 | `NUXT_PUBLIC_BASE_URL` | *(empty)* | The public base URL for your tracking links. Set it to your domain (e.g. `https://honey.example.com`) so copied URLs point at the right place. If empty, it falls back to the browser's current origin. |
 | `NUXT_GEO_LOOKUP` | `true` | Outbound IP to geo enrichment via ip-api.com. Set `false` to stay 100% local with zero outbound calls. |
+| `HONEY_DASHBOARD_TOKEN` | *(unset)* | Shared secret guarding every `/api/*` dashboard endpoint. **Required** — if unset the server returns `503` for all API calls. See [Authentication](#-authentication). |
+| `HONEY_AUTH_DISABLED` | *(unset)* | Set to `1` to bypass `HONEY_DASHBOARD_TOKEN` entirely. **Local development only — never set in production.** |
 | `PORT` | `3000` | Port the server listens on. |
 | `HOST` | `0.0.0.0` | Bind address. |
 
 There's a ready-to-copy [`.env.example`](.env.example) too. 📝
+
+
+# 🔐 Authentication
+
+Every `/api/*` endpoint streams sensitive honeypot data — visitor IPs, request headers, the cookies
+their browser leaked, the full trap configuration. So hon.ey gates the entire dashboard API behind
+a single shared token. It's deliberately simple: one secret, no user accounts, no session store. 🗝️
+
+## Setting the token
+
+Generate something long and random, then hand it to the server via `HONEY_DASHBOARD_TOKEN`:
+
+```bash
+# Generate
+openssl rand -hex 32
+# → put the result in your .env, docker-compose, or -e flag
+```
+
+> [!IMPORTANT]
+> If `HONEY_DASHBOARD_TOKEN` is **unset**, the server fails closed and answers every dashboard
+> request with `503 Dashboard auth not configured`. That's intentional — there is no "default open"
+> mode for production. 🚪
+
+## How clients send it
+
+The middleware accepts the token from any of these (first match wins):
+
+| Where | How it looks |
+|-------|--------------|
+| 🏷️ Header | `Authorization: Bearer <token>` |
+| 🍪 Cookie | `honey_token=<token>` |
+| 🔗 Query  | `?token=<token>` (handy for quick `curl`, avoid in URLs you share) |
+
+Quick smoke test against a running instance:
+
+```bash
+curl -H "Authorization: Bearer $HONEY_DASHBOARD_TOKEN" http://localhost:3000/api/traps
+```
+
+## Reverse-proxy injection (recommended for prod)
+
+The cleanest way to use the dashboard from a browser today is to let your reverse proxy attach the
+header for you. Example with nginx:
+
+```nginx
+location / {
+  proxy_pass http://honey:3000;
+  proxy_set_header Authorization "Bearer $HONEY_TOKEN_FROM_NGINX_ENV";
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+```
+
+…or Caddy:
+
+```caddy
+honey.example.com {
+  reverse_proxy honey:3000 {
+    header_up Authorization "Bearer {env.HONEY_DASHBOARD_TOKEN}"
+  }
+}
+```
+
+That way the browser never has to know the secret. Pair this with VPN access or an IP allowlist if
+you want defense-in-depth. 🛡️
+
+## Local development
+
+`npm run dev` against a fresh checkout would 503 on every API call. Two options:
+
+```bash
+# 1. Run with a throwaway token (mirrors production behavior)
+HONEY_DASHBOARD_TOKEN=dev-only npm run dev
+
+# 2. Skip auth entirely. Quick, but never use this in production.
+HONEY_AUTH_DISABLED=1 npm run dev
+```
+
+> [!CAUTION]
+> 🧨 The dashboard's Vue frontend doesn't have a login form *yet* — opening `http://localhost:3000`
+> in a browser only works when you're behind a reverse proxy that injects the header, or when
+> `HONEY_AUTH_DISABLED=1`. A proper login flow is a planned follow-up.
 
 
 # 🎨 The Dashboard
