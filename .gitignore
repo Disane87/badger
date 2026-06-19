@@ -2,7 +2,9 @@
 .nuxt
 .output
 .data
+.data.bak
 dist
+seed-demo.mjs
 
 # deps
 node_modules
