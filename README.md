@@ -5,6 +5,7 @@
 ![GitHub license](https://img.shields.io/github/license/Disane87/honey)
 ![GitHub issues](https://img.shields.io/github/issues/Disane87/honey?color=red)
 [![semantic-release: conventionalcommits](https://img.shields.io/badge/semantic--release-conventionalcommits-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![Website](https://img.shields.io/badge/website-disane87.github.io%2Fhoney-f2a007?logo=githubpages&logoColor=white)](https://disane87.github.io/honey/)
 
 
 # 🍯 hon.ey URL Honeypot
@@ -12,6 +13,11 @@
 Hey there! 👋 **hon.ey** turns any link into a tripwire. Create innocent-looking URLs, plant them
 wherever you want to keep an eye on things, and the moment someone opens one you'll know exactly
 *who* showed up and *with what*. 🕵️‍♀️✨
+
+> [!TIP]
+> 🌐 Prefer the pretty version? There's a **[landing page](https://disane87.github.io/honey/)** (English & German) with the full tour.
+
+![hon.ey dashboard](landing/assets/shots/dashboard.webp)
 
 Think of it as a [canary token](https://canarytokens.org/) you fully control: leaked-credential
 docs, fake internal links, "confidential" attachments, tracking pixels in emails. Drop a hon.ey
@@ -149,9 +155,18 @@ hon.ey ships with three friendly screens:
 - 📡 **Live Feed**: every recent visitor across all traps, auto-refreshing so you don't have to.
 - 🔎 **Trap Detail**: the full hit timeline with expandable metadata, plus the link-preview card for clone/custom traps.
 
+| 🔎 Trap detail | 📡 Live feed |
+|----------------|--------------|
+| ![Trap detail with expanded hit metadata](landing/assets/shots/trap-detail.webp) | ![Live feed of recent visitors](landing/assets/shots/live-feed.webp) |
+
 Want to design a fake preview? The **Custom Preview Builder** lets you type a title, description and
 image URL and watch the social-card preview update live, then pick whether humans get redirected or
 shown your own HTML. 🪄
+
+![Custom preview builder with a live social-card preview](landing/assets/shots/custom-builder.webp)
+
+> [!NOTE]
+> 📸 The screenshots above use fabricated demo data, no real IPs or people.
 
 
 # 🛠️ Tech Stack
