@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="page" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdf7ec"/>
+      <stop offset="1" stop-color="#fbeed6"/>
+    </linearGradient>
+    <radialGradient id="bloomTR" cx="0.92" cy="-0.1" r="0.65">
+      <stop offset="0" stop-color="#ffd166" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffd166" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bloomBL" cx="-0.05" cy="0.95" r="0.6">
+      <stop offset="0" stop-color="#f2a007" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#f2a007" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="markBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#f2a007"/>
+    </linearGradient>
+    <pattern id="dots" x="0" y="0" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="13" cy="13" r="1.1" fill="#e7d4ad" fill-opacity="0.55"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#page)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#bloomTR)"/>
+  <rect width="1200" height="630" fill="url(#bloomBL)"/>
+
+  <!-- Brand row -->
+  <g transform="translate(72, 72)">
+    <g transform="translate(0, 0)">
+      <rect width="80" height="80" rx="18" fill="url(#markBg)"/>
+      <g transform="translate(8, 8) scale(1)">
+        <path d="M16 18 L20 14 L24 22 Z" fill="#1c160e"/>
+        <path d="M48 18 L44 14 L40 22 Z" fill="#1c160e"/>
+        <path d="M32 16 C 19 16, 14 26, 14 36 C 14 47, 22 54, 32 54 C 42 54, 50 47, 50 36 C 50 26, 45 16, 32 16 Z" fill="#1c160e"/>
+        <path d="M32 17 C 29 22, 28.5 28, 28.5 34 C 28.5 39, 29.5 44, 32 50 C 34.5 44, 35.5 39, 35.5 34 C 35.5 28, 35 22, 32 17 Z" fill="#fffaf0"/>
+        <ellipse cx="22.5" cy="33" rx="2" ry="2.6" fill="#fffaf0"/>
+        <circle cx="22.5" cy="33.6" r="1" fill="#1c160e"/>
+        <ellipse cx="41.5" cy="33" rx="2" ry="2.6" fill="#fffaf0"/>
+        <circle cx="41.5" cy="33.6" r="1" fill="#1c160e"/>
+        <ellipse cx="32" cy="46" rx="3.2" ry="2.2" fill="#1c160e"/>
+      </g>
+    </g>
+    <text x="100" y="56" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="52" fill="#2e2415" letter-spacing="-1">Badger</text>
+    <g transform="translate(290, 30)">
+      <rect width="118" height="32" rx="16" fill="#fff1cf" stroke="#e7d4ad" stroke-width="1"/>
+      <text x="59" y="22" font-family="'Courier New', monospace" font-weight="700" font-size="14" fill="#8a5300" text-anchor="middle" letter-spacing="2">TRACKER</text>
+    </g>
+  </g>
+
+  <!-- Headline -->
+  <g transform="translate(72, 240)">
+    <text font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="92" fill="#2e2415" letter-spacing="-2">
+      <tspan x="0" y="0">Turn any link into a</tspan>
+      <tspan x="0" y="110" fill="#d98309">tripwire.</tspan>
+    </text>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="72" y="490" font-family="Arial, sans-serif" font-size="28" fill="#6f5f45">A self-hosted URL honeypot. See who opens your links,</text>
+  <text x="72" y="528" font-family="Arial, sans-serif" font-size="28" fill="#6f5f45">and exactly how.</text>
+
+  <!-- Bullets -->
+  <g transform="translate(72, 580)">
+    <circle cx="6" cy="-6" r="5" fill="#f2a007"/>
+    <text x="20" y="0" font-family="Arial, sans-serif" font-weight="600" font-size="18" fill="#6f5f45">Deep metadata capture  ·  Bot detection  ·  Open source</text>
+  </g>
+</svg>
