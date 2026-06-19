@@ -87,6 +87,35 @@ async function geoLookup(ip: string): Promise<GeoInfo | undefined> {
 }
 
 /**
+ * Header values too sensitive to persist verbatim. We keep the header name in
+ * the record (so analysts know it was sent) but replace the value with a
+ * length-stub. Visitors clicking traps from authenticated browsers will leak
+ * their session tokens here otherwise.
+ */
+const REDACTED_HEADERS = new Set([
+  'cookie',
+  'set-cookie',
+  'authorization',
+  'proxy-authorization',
+  'x-api-key',
+  'x-auth-token',
+  'x-csrf-token',
+  'x-xsrf-token'
+])
+
+function redactHeaders(headers: Record<string, string>): Record<string, string> {
+  const out: Record<string, string> = {}
+  for (const [name, value] of Object.entries(headers)) {
+    if (REDACTED_HEADERS.has(name.toLowerCase()) && value) {
+      out[name] = `[redacted ${value.length} chars]`
+    } else {
+      out[name] = value
+    }
+  }
+  return out
+}
+
+/**
  * Build a full Hit record from the incoming request. This is where all the
  * juicy honeypot metadata gets collected.
  */
@@ -114,6 +143,6 @@ export async function buildHit(event: H3Event): Promise<Omit<Hit, 'id' | 'trapId
     geo,
     isBot: bot.isBot,
     botReason: bot.reason,
-    headers
+    headers: redactHeaders(headers)
   }
 }

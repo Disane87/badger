@@ -1,7 +1,97 @@
+import { Resolver } from 'node:dns/promises'
+import { isIP } from 'node:net'
 import type { CustomPreview, OgData, OgTag } from './types'
 
 const FETCH_UA =
   'Mozilla/5.0 (compatible; hon.ey-link-preview/1.0; +https://github.com/) facebookexternalhit/1.1'
+
+const resolver = new Resolver()
+
+/**
+ * Reject loopback, link-local, cloud-metadata, and RFC1918 ranges so a malicious
+ * trap target cannot pivot fetchOgData into the host's internal network.
+ */
+function isPrivateAddress(addr: string): boolean {
+  const v = isIP(addr)
+  if (v === 4) {
+    const [a, b] = addr.split('.').map(Number)
+    if (a === 10) return true
+    if (a === 127) return true
+    if (a === 0) return true
+    if (a === 169 && b === 254) return true // link-local + AWS/GCP metadata
+    if (a === 172 && b >= 16 && b <= 31) return true
+    if (a === 192 && b === 168) return true
+    if (a === 100 && b >= 64 && b <= 127) return true // CGNAT
+    if (a >= 224) return true // multicast + reserved
+    return false
+  }
+  if (v === 6) {
+    const lower = addr.toLowerCase()
+    if (lower === '::1' || lower === '::' || lower.startsWith('fe80:') || lower.startsWith('fc') || lower.startsWith('fd')) return true
+    if (lower.startsWith('::ffff:')) return isPrivateAddress(lower.slice(7))
+    if (lower.startsWith('2001:db8:')) return true
+    return false
+  }
+  return true
+}
+
+async function assertPublicHost(urlStr: string): Promise<void> {
+  let parsed: URL
+  try {
+    parsed = new URL(urlStr)
+  } catch {
+    throw new Error('Invalid URL')
+  }
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+    throw new Error(`Refusing non-http(s) scheme: ${parsed.protocol}`)
+  }
+  const host = parsed.hostname
+  if (!host) throw new Error('URL has no host')
+  if (host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.local') || host.endsWith('.internal')) {
+    throw new Error(`Refusing internal host: ${host}`)
+  }
+
+  const literal = isIP(host)
+  if (literal) {
+    if (isPrivateAddress(host)) throw new Error(`Refusing private IP: ${host}`)
+    return
+  }
+
+  const addrs: string[] = []
+  for (const fn of ['resolve4', 'resolve6'] as const) {
+    try {
+      const r = await resolver[fn](host)
+      addrs.push(...r)
+    } catch {}
+  }
+  if (!addrs.length) throw new Error(`Could not resolve host: ${host}`)
+  for (const a of addrs) {
+    if (isPrivateAddress(a)) throw new Error(`Host ${host} resolves to private address ${a}`)
+  }
+}
+
+/**
+ * Follow redirects manually so each hop's hostname can be re-validated against
+ * the private-network blocklist. Native fetch with redirect:'follow' would let
+ * an attacker bounce us from a public host into 169.254.169.254.
+ */
+async function safePublicFetch(url: string, init: RequestInit & { maxRedirects?: number }): Promise<Response> {
+  const max = init.maxRedirects ?? 5
+  let current = url
+  const { maxRedirects: _omit, ...passthrough } = init
+  for (let i = 0; i <= max; i++) {
+    await assertPublicHost(current)
+    const res = await fetch(current, { ...passthrough, redirect: 'manual' })
+    if (res.status >= 300 && res.status < 400) {
+      const loc = res.headers.get('location')
+      if (!loc) return res
+      current = new URL(loc, current).toString()
+      continue
+    }
+    return res
+  }
+  throw new Error('Too many redirects')
+}
 
 /** Which meta tags are worth cloning for a link preview. */
 function wantMeta(attr: 'property' | 'name', key: string): boolean {
@@ -56,9 +146,8 @@ export async function fetchOgData(targetUrl: string): Promise<OgData> {
   try {
     const controller = new AbortController()
     const t = setTimeout(() => controller.abort(), 8000)
-    const res = await fetch(targetUrl, {
+    const res = await safePublicFetch(targetUrl, {
       headers: { 'User-Agent': FETCH_UA, Accept: 'text/html,application/xhtml+xml' },
-      redirect: 'follow',
       signal: controller.signal
     }).finally(() => clearTimeout(t))
 
