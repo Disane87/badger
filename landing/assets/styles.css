@@ -299,6 +299,13 @@ svg { flex-shrink: 0; }
     --body-bloom-2: rgba(242, 160, 7, 0.05);
     --body-dot: rgba(117, 96, 63, 0.20);
   }
+
+  /* badge borders use light tints that read as a white rim on dark surfaces */
+  .badge.pixel    { color: #c8b0f5; border-color: #4a3a66; }
+  .badge.redirect { color: #8cc4f0; border-color: #2f4a64; }
+  .badge.clone    { color: #5cd98a; border-color: #2a5238; }
+  .badge.custom   { color: #ff9c6e; border-color: var(--burnt-border); }
+  .badge.decoy    { color: var(--honey-deep); border-color: #75603f; }
 }
 
 /* ---------- motion ---------- */
