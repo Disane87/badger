@@ -102,7 +102,7 @@ svg { flex-shrink: 0; }
 }
 .brand .name { font-family: var(--display); font-weight: 600; font-size: 25px; letter-spacing: -0.01em; line-height: 1; color: var(--ink); }
 .brand .name b { color: var(--honey-deep); font-weight: 600; }
-.brand .tag { font: 700 10px var(--mono); color: var(--honey-deep); background: var(--honey-soft); border: 1px solid var(--border-strong); padding: 3px 9px; border-radius: 999px; letter-spacing: .06em; }
+.brand .tag { font: 700 10px var(--mono); color: #8a5300; background: var(--honey-soft); border: 1px solid var(--border-strong); padding: 3px 9px; border-radius: 999px; letter-spacing: .06em; }
 .topbar-right { display: flex; align-items: center; gap: 12px; }
 
 /* language switcher */
@@ -132,7 +132,7 @@ svg { flex-shrink: 0; }
 
 /* ---------- hero ---------- */
 .hero { padding: 64px 0 36px; text-align: center; }
-.hero .eyebrow { font: 700 12px var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--honey-deep); margin-bottom: 18px; display: inline-flex; align-items: center; gap: 8px; background: var(--honey-soft); border: 1px solid var(--border-strong); padding: 6px 14px; border-radius: 999px; }
+.hero .eyebrow { font: 700 12px var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: #8a5300; margin-bottom: 18px; display: inline-flex; align-items: center; gap: 8px; background: var(--honey-soft); border: 1px solid var(--border-strong); padding: 6px 14px; border-radius: 999px; }
 .hero h1 { font-family: var(--display); font-weight: 600; font-size: clamp(40px, 6vw, 64px); line-height: 1.02; letter-spacing: -0.025em; margin: 0 0 18px; color: var(--ink); }
 .hero h1 .accent { color: var(--honey-deep); }
 .hero .lead { font-size: 19px; color: var(--ink-soft); max-width: 60ch; margin: 0 auto 28px; }
@@ -167,7 +167,7 @@ svg { flex-shrink: 0; }
 .frame .bar i:nth-child(1) { background: #f0a4a4; }
 .frame .bar i:nth-child(2) { background: var(--honey-glow); }
 .frame .bar i:nth-child(3) { background: #a9d8b8; }
-.frame .bar .addr { margin-left: 10px; font: 400 12px var(--mono); color: var(--ink-faint); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; }
+.frame .bar .addr { margin-left: 10px; font: 400 12px var(--mono); color: var(--ink-soft); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; }
 .frame img, .frame button.shot { display: block; width: 100%; height: auto; border: 0; padding: 0; background: none; cursor: zoom-in; }
 .frame button.shot img { cursor: zoom-in; }
 
@@ -202,11 +202,11 @@ svg { flex-shrink: 0; }
 }
 .trap:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--border-strong); }
 .trap .badge { display: inline-flex; align-items: center; gap: 6px; font: 700 12px var(--sans); padding: 5px 12px; border-radius: 999px; text-transform: capitalize; margin-bottom: 13px; }
-.badge.pixel { color: var(--plum); background: var(--plum-soft); border: 1px solid #e0d2f3; }
-.badge.redirect { color: var(--sky); background: var(--sky-soft); border: 1px solid #cfe4f6; }
-.badge.clone { color: var(--mint); background: var(--mint-soft); border: 1px solid #c9ecd6; }
-.badge.custom { color: var(--burnt); background: var(--burnt-soft); border: 1px solid var(--burnt-border); }
-.badge.decoy { color: var(--honey-deep); background: var(--honey-soft); border: 1px solid var(--border-strong); }
+.badge.pixel { color: #6d3fae; background: var(--plum-soft); border: 1px solid #e0d2f3; }
+.badge.redirect { color: #1f6aa8; background: var(--sky-soft); border: 1px solid #cfe4f6; }
+.badge.clone { color: #157a42; background: var(--mint-soft); border: 1px solid #c9ecd6; }
+.badge.custom { color: #a8431f; background: var(--burnt-soft); border: 1px solid var(--burnt-border); }
+.badge.decoy { color: #8a5300; background: var(--honey-soft); border: 1px solid var(--border-strong); }
 .trap h3 { font-family: var(--display); font-weight: 600; font-size: 18px; margin: 0 0 6px; color: var(--ink); }
 .trap p { margin: 0; font-size: 14.5px; color: var(--ink-soft); }
 
