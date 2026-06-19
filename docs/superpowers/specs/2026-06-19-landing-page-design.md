@@ -51,11 +51,16 @@ landing/
     index.html            # German
   assets/
     styles.css            # honey design tokens + page styles (shared by both langs)
-    main.js               # tiny: language redirect/switcher + copy-to-clipboard
+    main.js               # tiny: language redirect/switcher + copy-to-clipboard + lightbox
     fonts/
       fraunces-*.woff2
       figtree-*.woff2
       space-mono-*.woff2
+    shots/                # real product screenshots (see "Screenshot showcase")
+      dashboard.webp
+      trap-detail.webp
+      live-feed.webp
+      custom-builder.webp
     og.png                # 1200x630 social card
     favicon.svg
   robots.txt
@@ -74,14 +79,17 @@ landing/
    DESIGN_PRD section 4) plus component styles for the landing sections. Shared
    verbatim by both languages. Critical above-the-fold CSS is additionally inlined
    in each page `<head>`; this file is the cached remainder.
-3. **`main.js`.** Three small, independent functions:
+3. **`main.js`.** Small, independent functions:
    - `pickLanguage()` - on the root (EN) page only: if `localStorage.honey-lang`
      is unset and `navigator.language` starts with `de`, `location.replace('de/')`.
      Runs once; guarded against loops.
    - language switcher click handler - sets `localStorage.honey-lang` and navigates.
    - `copyButtons()` - copy the Docker snippet, show a brief "Copied" state.
-   - Degrades gracefully: with JS off, EN renders fully and both languages are
-     reachable via the visible switcher links.
+   - `lightbox()` - clicking a showcase screenshot opens it larger in an overlay
+     (Escape / click-outside to close). Optional enhancement; screenshots are
+     plain links/images without it.
+   - Degrades gracefully: with JS off, EN renders fully, both languages are
+     reachable via the visible switcher links, and screenshots still display.
 4. **`pages.yml` workflow.** On push to the default branch (paths: `landing/**`),
    `actions/upload-pages-artifact` (path `landing`) -> `actions/deploy-pages`.
    No build step. Needs `pages: write` + `id-token: write` permissions and the
@@ -102,16 +110,50 @@ is a faithful translation in the same voice.
    (anchors to the Docker section). Honey-glow background layers from DESIGN_PRD 4.4.
 3. **What can this thing do?** - feature grid (Lucide icon + bold lead-in + short
    line), drawn from the README feature list.
-4. **Trap types** - cards for pixel / redirect / clone / custom / decoy using the
+4. **See it in action** - screenshot showcase. The hero/lead screenshot
+   (dashboard) sits in a soft browser-chrome frame; below it a small responsive
+   gallery of trap detail, live feed, and the custom preview builder, each with a
+   one-line caption in the README voice. Click to enlarge (lightbox). See the
+   "Screenshot showcase" section for how the images are produced.
+6. **Trap types** - cards for pixel / redirect / clone / custom / decoy using the
    honey badge color pairs (DESIGN_PRD 7.8).
-5. **What gets captured** - metadata bullet list (IP chain, geo/ASN, client
+7. **What gets captured** - metadata bullet list (IP chain, geo/ASN, client
    fingerprint, headers, bot verdict).
-6. **Self-host in one command** - the `docker run` snippet in a mono code block
+8. **Self-host in one command** - the `docker run` snippet in a mono code block
    with a copy button; note about reverse-proxy / `X-Forwarded-For`.
-7. **Legal & ethical note** - the README warning callout (warm but clear).
-8. **Footer** - **"Made with ♥️ by disane.de"** linking to `https://disane.de`;
+9. **Legal & ethical note** - the README warning callout (warm but clear).
+10. **Footer** - **"Made with ♥️ by disane.de"** linking to `https://disane.de`;
    plus links to the blog (`https://blog.disane.dev`), the GitHub repo, and the MIT
    license. Small, calm.
+
+## Screenshot showcase (production)
+
+Screenshots are **real captures of the running app**, not mockups, and the landing
+page reuses the exact honey design tokens so the page and the screenshots read as
+one continuous product.
+
+Production steps (one-time, during implementation):
+
+1. **Run the app locally** (`npm run dev`, or `npm run build` + preview).
+2. **Seed realistic demo data** into the file store (`.data`) so screens look
+   populated: a handful of traps across types (pixel/redirect/clone/custom/decoy)
+   and several hits with **fully fabricated, sanitized** metadata - no real IPs,
+   no real people, a mix of human/bot verdicts and varied geo/UA. This demo data
+   is for capture only and is not committed.
+3. **Capture with a browser automation tool** (Playwright MCP) at a desktop
+   viewport (1440 wide) and `deviceScaleFactor: 2` for crisp 2x images. Screens:
+   - `dashboard.webp` - the traps overview with KPIs and trap cards.
+   - `trap-detail.webp` - a trap detail with the hit table and one row expanded
+     showing metadata.
+   - `live-feed.webp` - the live feed table.
+   - `custom-builder.webp` - the custom preview builder with its live OG card.
+4. **Optimize** to `webp` (quality ~80), keep a reasonable max width (~1600px),
+   store under `landing/assets/shots/`. Record intrinsic `width`/`height`.
+
+On the page the screenshots are shown with explicit `width`/`height` (no layout
+shift), `loading="lazy"` for any below the fold, and `alt` text describing each
+screen. They sit in a subtle honey-tinted browser frame consistent with the
+DESIGN_PRD surfaces, borders, radii, and shadows.
 
 ## SEO specification
 
@@ -174,6 +216,8 @@ Root-level: `robots.txt` (allow all + `Sitemap:` line) and `sitemap.xml`
   targets above.
 - Confirm relative paths resolve under a `/honey/` base (e.g. serve from a
   `/honey/` sub-path locally).
+- Confirm the four screenshots captured correctly (populated, sanitized demo
+  data, no real IPs), sit cleanly in their frames, and cause no layout shift.
 
 ## Out of scope
 
