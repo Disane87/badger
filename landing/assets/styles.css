@@ -158,6 +158,7 @@ svg { flex-shrink: 0; }
 /* ---------- showcase ---------- */
 .showcase-hero { margin: 0 auto 28px; max-width: 960px; }
 .frame {
+  margin: 0;
   background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--r-lg);
   box-shadow: var(--shadow-lg); overflow: hidden;
 }
@@ -170,13 +171,22 @@ svg { flex-shrink: 0; }
 .frame img, .frame button.shot { display: block; width: 100%; height: auto; border: 0; padding: 0; background: none; cursor: zoom-in; }
 .frame button.shot img { cursor: zoom-in; }
 
-.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
 .gallery figure { margin: 0; }
 .gallery .frame { box-shadow: var(--shadow); transition: transform .2s ease, box-shadow .2s ease; }
 .gallery .frame img { aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
 .gallery figure:hover .frame { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .gallery figcaption { margin-top: 11px; font-size: 14px; color: var(--ink-soft); text-align: center; }
 .gallery figcaption b { color: var(--ink); font-weight: 700; }
+
+/* editorial split (custom preview builder) */
+.showcase-split { display: grid; grid-template-columns: 0.85fr 1fr; gap: 32px; align-items: center; margin-top: 28px; }
+.showcase-split .frame { box-shadow: var(--shadow-lg); }
+.showcase-split .frame img { display: block; width: 100%; height: auto; }
+.showcase-split .split-text h3 { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 3vw, 28px); letter-spacing: -0.02em; margin: 0 0 10px; color: var(--ink); }
+.showcase-split .split-text p { font-size: 16px; color: var(--ink-soft); margin: 0 0 14px; max-width: 46ch; }
+.showcase-split .split-text .kicker { font: 700 12px var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--honey-deep); display: block; margin-bottom: 10px; }
+@media (max-width: 760px) { .showcase-split { grid-template-columns: 1fr; gap: 20px; } }
 
 /* lightbox */
 .lightbox { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 32px; background: rgba(46, 36, 21, 0.72); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
