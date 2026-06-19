@@ -1,4 +1,4 @@
-# Design PRD — hon.ey
+# Design PRD: hon.ey
 
 > **Zweck dieses Dokuments:** Eine implementierungsreife Design-Spezifikation für das
 > hon.ey-Dashboard. Es ist so geschrieben, dass ein Agent (z. B. Claude) das Design ohne
@@ -21,7 +21,7 @@ unverdächtig aussehende Tracking-Links und sehen, *wer* sie öffnet und *mit we
 ### Zielgruppe & Tonalität
 Sicherheitsbewusste, technische Nutzer:innen (Pentester, IT-Security, Admins). Das Tool wird
 oft in stressigen Situationen genutzt. Die UI SOLL deshalb **freundlich, ruhig und
-vertrauenswürdig** wirken — bewusst das Gegenteil eines kühlen „Hacker-Terminals".
+vertrauenswürdig** wirken, bewusst das Gegenteil eines kühlen „Hacker-Terminals".
 
 ---
 
@@ -100,7 +100,7 @@ Laden via Google Fonts im `<head>` (siehe `nuxt.config.ts`). Fallbacks Pflicht.
 | Section-Title  | mono      | 12px / 700 / 0.14em / UPPERCASE / `--ink-faint`     |
 | Label (Form)   | sans      | 13px / 600 / `--ink-soft`                             |
 | Tabelle TH     | mono      | 11px / 700 / 0.1em / UPPERCASE / `--ink-faint`      |
-| Code / URL / IP| mono      | 12.5–13px                                            |
+| Code / URL / IP| mono      | 12.5-13px                                            |
 
 H1 SOLL ein eingefärbtes Akzent-Wort enthalten (`<span class="accent">` in `--honey-deep`).
 Mobile (≤760px): H1 auf 30px.
@@ -122,7 +122,7 @@ Mobile (≤760px): H1 auf 30px.
 - **Container:** `max-width: 1080px`, `padding: 0 24px`, zentriert.
 - **Seiten-Padding vertikal:** `38px` oben, `80px` unten.
 - **Motion-Timing:** Standard `0.15s ease` (Hover), Einblendungen
-  `0.45–0.5s cubic-bezier(.2,.7,.2,1)`. `prefers-reduced-motion` respektieren (Animationen aus).
+  `0.45-0.5s cubic-bezier(.2,.7,.2,1)`. `prefers-reduced-motion` respektieren (Animationen aus).
 
 ### 4.4 Hintergrund (App-Body)
 
@@ -198,7 +198,7 @@ Jede Komponente mit Default + relevanten States (hover/focus/disabled/active/emp
 - **Ghost (`.btn.ghost`):** weiße Fläche, `--ink-soft`, 1.5px `--border-strong`. Hover: `--honey-soft`.
 - **Danger (`.btn.danger`):** transparent, `--coral`, Rahmen `--coral-soft`. Hover: `--coral-soft`-Fläche.
 - **Small (`.btn.sm`):** 7px 13px / 13px.
-- Buttons mit Icon: Icon links, `gap: 7–8px`.
+- Buttons mit Icon: Icon links, `gap: 7-8px`.
 
 ### 7.2 Eingaben (`input, select, textarea`)
 - Fläche `--surface-2`, Rahmen 1.5px `--border`, Radius `--r-sm`, Padding 11px 13px, 15px.
@@ -346,7 +346,7 @@ Jede Komponente mit Default + relevanten States (hover/focus/disabled/active/emp
 ## 12. Content / Copy
 
 - **Stimme:** freundlich, klar, kurz. Beispiele: „Your honey traps",
-  „Friendly-looking links that quietly note down everyone who opens them — and exactly how.",
+  „Friendly-looking links that quietly note down everyone who opens them and exactly how.",
   „All quiet", „Waiting for the first visitor".
 - UI-Sprache: Englisch. Fachbegriffe konsistent: *trap, hit, verdict (human/bot), preview*.
 - Keine Ausrufezeichen-Inflation, keine Emojis, kein Marketing-Sprech.
@@ -370,7 +370,7 @@ Jede Komponente mit Default + relevanten States (hover/focus/disabled/active/emp
 
 ## 14. Out of Scope (aktuell) / mögliche Erweiterungen
 
-- Authentifizierung fürs Dashboard (derzeit keine) — empfohlen vor Deployment.
+- Authentifizierung fürs Dashboard (derzeit keine), empfohlen vor Deployment.
 - Bearbeiten bestehender Traps (nur anlegen/löschen vorhanden).
 - Dark-Mode-Variante (das Theme ist bewusst hell; ein Dark-Pendant wäre additiv).
 - Karten-/Geo-Visualisierung der Treffer, CSV/JSON-Export, Charts.
