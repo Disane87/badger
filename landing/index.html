@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>hon.ey - turn any link into a tripwire | URL honeypot &amp; canary tokens</title>
+  <meta name="description" content="hon.ey makes innocent-looking URLs that quietly log everyone who opens them, and exactly how. A self-hosted URL honeypot and canary-token tool with deep metadata capture, bot detection and a friendly honey-themed dashboard.">
+  <meta name="theme-color" content="#F2A007">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="disane.de">
+
+  <link rel="canonical" href="https://disane87.github.io/honey/">
+  <link rel="alternate" hreflang="en" href="https://disane87.github.io/honey/">
+  <link rel="alternate" hreflang="de" href="https://disane87.github.io/honey/de/">
+  <link rel="alternate" hreflang="x-default" href="https://disane87.github.io/honey/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="hon.ey">
+  <meta property="og:title" content="hon.ey - turn any link into a tripwire">
+  <meta property="og:description" content="A self-hosted URL honeypot and canary-token tool. Innocent-looking links that quietly log everyone who opens them, and exactly how.">
+  <meta property="og:url" content="https://disane87.github.io/honey/">
+  <meta property="og:image" content="https://disane87.github.io/honey/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="de_DE">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="hon.ey - turn any link into a tripwire">
+  <meta name="twitter:description" content="A self-hosted URL honeypot and canary-token tool. Innocent-looking links that quietly log everyone who opens them.">
+  <meta name="twitter:image" content="https://disane87.github.io/honey/assets/og.png">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preload" href="assets/fonts/fraunces-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/figtree-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "hon.ey",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Docker, Linux, Node.js",
+    "description": "A self-hosted URL honeypot and canary-token tool. Create innocent-looking tracking links and see who opens them and with what metadata.",
+    "url": "https://disane87.github.io/honey/",
+    "image": "https://disane87.github.io/honey/assets/og.png",
+    "inLanguage": "en",
+    "license": "https://opensource.org/licenses/MIT",
+    "author": { "@type": "Person", "name": "Disane", "url": "https://disane.de" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="./" aria-label="hon.ey home">
+        <span class="logo" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </span>
+        <span class="name">hon<b>.</b>ey</span>
+        <span class="tag">HONEYPOT</span>
+      </a>
+      <div class="topbar-right">
+        <nav class="lang-switch" aria-label="Language">
+          <a href="./" class="on" data-lang="en" hreflang="en">EN</a>
+          <a href="de/" data-lang="de" hreflang="de">DE</a>
+        </nav>
+        <a class="btn ghost sm" href="https://github.com/Disane87/honey" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <span class="eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+          Defensive canary tokens
+        </span>
+        <h1>Turn any link into a <span class="accent">tripwire</span>.</h1>
+        <p class="lead">hon.ey makes innocent-looking URLs that quietly note down <em>everyone</em> who opens them, and exactly how. Think of it as a canary token you fully control: drop a link and watch the metadata roll in.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://github.com/Disane87/honey" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            Star on GitHub
+          </a>
+          <a class="btn ghost" href="#self-host">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>
+            Self-host it
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOWCASE HERO -->
+    <section class="section">
+      <div class="container">
+        <div class="showcase-hero">
+          <figure class="frame" style="margin:0">
+            <div class="bar"><i></i><i></i><i></i><span class="addr">honey.example.com</span></div>
+            <button type="button" class="shot" data-shot="assets/shots/dashboard.webp" aria-label="Enlarge dashboard screenshot">
+              <img src="assets/shots/dashboard.webp" width="1600" height="1000" alt="hon.ey dashboard showing active traps, hit counts and trap cards in the warm honey theme" loading="lazy" decoding="async">
+            </button>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">What can this thing do?</span>
+          <h2>Everything a good tripwire needs</h2>
+          <p>Plant a link, then learn exactly who walked into it, and with what.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <h3>Four trap flavors</h3>
+            <p>Tracking pixels, redirect links, preview clones and fully custom fake pages. Pick the disguise that fits the situation.</p>
+          </article>
+          <article class="feature">
+            <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg></span>
+            <h3>Deep metadata capture</h3>
+            <p>IP chain, geo, ISP and ASN, parsed browser and OS, referer, language, and the complete raw request headers.</p>
+          </article>
+          <article class="feature">
+            <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span>
+            <h3>Bot vs. human verdict</h3>
+            <p>A built-in heuristic flags automated clients, and tells you the reason it decided that. Less noise, more signal.</p>
+          </article>
+          <article class="feature">
+            <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>
+            <h3>Link preview cloning</h3>
+            <p>Copy any URL's OpenGraph card so your trap unfurls identically in Slack, Discord or X, then forwards to the real thing.</p>
+          </article>
+          <article class="feature">
+            <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.83-.44-1.12-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.66h2c3.05 0 5.55-2.5 5.55-5.56C21.97 6.01 17.46 2 12 2z"/></svg></span>
+            <h3>Custom preview builder</h3>
+            <p>Design your own fake link preview with a live preview, then choose: redirect humans onward, or show them your own HTML.</p>
+          </article>
+          <article class="feature">
+            <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg></span>
+            <h3>Live feed</h3>
+            <p>Every hit across every trap, streaming in and auto-refreshing, so you never have to babysit the dashboard.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOWCASE GALLERY -->
+    <section class="section" id="screens">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">See it in action</span>
+          <h2>A dashboard that is actually nice to look at</h2>
+          <p>Warm, friendly, and calm. No scary hacker terminal here.</p>
+        </div>
+        <div class="gallery">
+          <figure>
+            <div class="frame">
+              <div class="bar"><i></i><i></i><i></i><span class="addr">trap detail</span></div>
+              <button type="button" class="shot" data-shot="assets/shots/trap-detail.webp" aria-label="Enlarge trap detail screenshot">
+                <img src="assets/shots/trap-detail.webp" width="1600" height="1000" alt="Trap detail page with the hit timeline and one row expanded to reveal full visitor metadata" loading="lazy" decoding="async">
+              </button>
+            </div>
+            <figcaption><b>Trap detail.</b> The full hit timeline with expandable metadata.</figcaption>
+          </figure>
+          <figure>
+            <div class="frame">
+              <div class="bar"><i></i><i></i><i></i><span class="addr">live feed</span></div>
+              <button type="button" class="shot" data-shot="assets/shots/live-feed.webp" aria-label="Enlarge live feed screenshot">
+                <img src="assets/shots/live-feed.webp" width="1600" height="1000" alt="Live feed table showing recent visitors across every trap with location, client and verdict" loading="lazy" decoding="async">
+              </button>
+            </div>
+            <figcaption><b>Live feed.</b> Every recent visitor, auto-refreshing.</figcaption>
+          </figure>
+          <figure>
+            <div class="frame">
+              <div class="bar"><i></i><i></i><i></i><span class="addr">custom builder</span></div>
+              <button type="button" class="shot" data-shot="assets/shots/custom-builder.webp" aria-label="Enlarge custom preview builder screenshot">
+                <img src="assets/shots/custom-builder.webp" width="1600" height="1000" alt="Custom preview builder with form fields on the left and a live OpenGraph preview card on the right" loading="lazy" decoding="async">
+              </button>
+            </div>
+            <figcaption><b>Preview builder.</b> Craft a fake card with a live preview.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAP TYPES -->
+    <section class="section" id="traps">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Trap types</span>
+          <h2>One link, five disguises</h2>
+          <p>Each trap is just a URL you plant somewhere. What the visitor sees depends on the type, but every open is logged.</p>
+        </div>
+        <div class="trap-grid">
+          <article class="trap">
+            <span class="badge pixel"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>pixel</span>
+            <h3>Invisible tracking pixel</h3>
+            <p>A 1x1 image you embed in emails and documents. The visitor sees nothing; you see everything.</p>
+          </article>
+          <article class="trap">
+            <span class="badge redirect"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>redirect</span>
+            <h3>Redirect link</h3>
+            <p>Looks like a totally normal short link, then quietly forwards the visitor on to a real URL.</p>
+          </article>
+          <article class="trap">
+            <span class="badge clone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>clone</span>
+            <h3>Preview clone</h3>
+            <p>Copies a target's OpenGraph card so the link unfurls identically, then forwards to the original.</p>
+          </article>
+          <article class="trap">
+            <span class="badge custom"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></svg>custom</span>
+            <h3>Custom page</h3>
+            <p>Your hand-crafted preview plus a redirect, or your own HTML page. Suggest a believable destination.</p>
+          </article>
+          <article class="trap">
+            <span class="badge decoy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12a5 5 0 0 0 5 5 8 8 0 0 1 5 2 8 8 0 0 1 5-2 5 5 0 0 0 5-5V7h-5a8 8 0 0 0-5 2 8 8 0 0 0-5-2H2z"/><path d="M6 11c1.5 0 3 .5 3 2-2 0-3 0-3-2"/><path d="M18 11c-1.5 0-3 .5-3 2 2 0 3 0 3-2"/></svg>decoy</span>
+            <h3>Friendly decoy</h3>
+            <p>A soft "loading..." landing page that reveals nothing while it logs the visit in the background.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT GETS CAPTURED -->
+    <section class="section" id="captured">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">What gets captured</span>
+          <h2>The juicy details, every single hit</h2>
+        </div>
+        <div class="capture">
+          <ul class="capture-list">
+            <li>
+              <span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg></span>
+              <span><b>Full IP chain</b><span>X-Forwarded-For, CF-Connecting-IP, X-Real-IP and the socket address.</span></span>
+            </li>
+            <li>
+              <span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <span><b>Geo &amp; network</b><span>Country, city, region, ISP, org and ASN. Toggleable, stays local if you want.</span></span>
+            </li>
+            <li>
+              <span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg></span>
+              <span><b>Client fingerprint</b><span>Browser, version, OS, device and engine, parsed from the User-Agent.</span></span>
+            </li>
+            <li>
+              <span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg></span>
+              <span><b>Headers &amp; hints</b><span>Referer, Accept-Language and the complete raw request headers.</span></span>
+            </li>
+            <li>
+              <span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span>
+              <span><b>Bot verdict</b><span>Human or bot, plus the heuristic reason it decided that.</span></span>
+            </li>
+            <li>
+              <span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M2 16h.01"/><path d="M21.8 16c.2-2 .131-5.354 0-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/></svg></span>
+              <span><b>Unique visitors</b><span>Distinct IPs counted per trap, so repeat opens never inflate the picture.</span></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELF-HOST -->
+    <section class="section" id="self-host">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Self-host in one command</span>
+          <h2>Your data, your server, zero setup</h2>
+          <p>A prebuilt image ships to GitHub Container Registry on every push. Pull it and you are running.</p>
+        </div>
+        <div class="codecard">
+          <div class="codeblock">
+            <button type="button" class="copy-btn" data-copy="#docker-cmd" data-copied="Copied">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              Copy
+            </button>
+            <pre><code id="docker-cmd"><span class="c"># pull and run the prebuilt image</span>
+docker run -d --name honey <span class="f">\</span>
+  -p 3000:3000 <span class="f">\</span>
+  -e NUXT_PUBLIC_BASE_URL=https://honey.example.com <span class="f">\</span>
+  -v honey-data:/app/.data <span class="f">\</span>
+  ghcr.io/disane87/honey:latest</code></pre>
+          </div>
+          <p class="hint">Put it behind a reverse proxy so <code>X-Forwarded-For</code> carries the real client IP. The dashboard has no auth yet, so keep it on a leash.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEGAL -->
+    <section class="section" id="ethics">
+      <div class="container">
+        <div class="callout">
+          <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+          <div>
+            <h3>A defensive tool, so keep it on a leash</h3>
+            <p>hon.ey is for authorized security testing and monitoring of assets you own or are allowed to watch. Tracking or cloaked links against third parties without consent may break privacy law, and impersonating a brand you do not control is plain phishing. Be a good human.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="made">Made with <span class="heart" aria-hidden="true">&#9829;</span><span class="sr-only">love</span> by <a href="https://disane.de" rel="noopener">disane.de</a></p>
+      <div class="links">
+        <a href="https://disane.de" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          disane.de
+        </a>
+        <a href="https://blog.disane.dev" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+          Blog
+        </a>
+        <a href="https://github.com/Disane87/honey" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          GitHub
+        </a>
+      </div>
+      <p class="fine">Open source under the MIT license. Do good things with it.</p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+    <button type="button" class="close" aria-label="Close preview">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <img src="" alt="">
+  </div>
+
+  <script src="assets/main.js" defer></script>
+</body>
+</html>
