@@ -1,6 +1,6 @@
 {
   "name": "badger",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "Badger: a stubborn URL honeypot and canary-token tool that quietly logs everyone who opens a link, and exactly how.",
   "type": "module",
