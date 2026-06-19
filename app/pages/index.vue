@@ -100,7 +100,7 @@ function flash(msg: string) {
   <div class="container page">
     <div class="between">
       <div>
-        <h1>Your <span class="accent">honey traps</span></h1>
+        <h1>Your <span class="accent">badger traps</span></h1>
         <p class="lead">Friendly-looking links that quietly note down everyone who opens them — and exactly how.</p>
       </div>
       <button class="btn" @click="openCreate">

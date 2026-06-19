@@ -23,7 +23,7 @@ export async function trackBySlug(event: H3Event, slug: string): Promise<TrackRe
     await recordHit(trap.id, hit)
   } catch (err) {
     // Never let logging failures break the decoy response.
-    console.error('[hon.ey] failed to record hit', err)
+    console.error('[badger] failed to record hit', err)
   }
   return { trap, hit }
 }

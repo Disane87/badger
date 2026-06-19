@@ -3,13 +3,13 @@
  * streams victim PII (IPs, headers, cookies) so leaving these endpoints open
  * to the internet is a data-protection problem.
  *
- * Set HONEY_DASHBOARD_TOKEN in the environment. Clients send it as either:
+ * Set BADGER_DASHBOARD_TOKEN in the environment. Clients send it as either:
  *   Authorization: Bearer <token>
  *   ?token=<token>
- *   Cookie: honey_token=<token>
+ *   Cookie: badger_token=<token>
  *
  * If the env var is unset, the server refuses every dashboard request — fail
- * closed. Set HONEY_AUTH_DISABLED=1 to explicitly allow open access (dev only).
+ * closed. Set BADGER_AUTH_DISABLED=1 to explicitly allow open access (dev only).
  */
 
 const SAFE_PATHS = ['/api/_nuxt_icon']
@@ -26,13 +26,13 @@ export default defineEventHandler((event) => {
   if (!path.startsWith('/api/')) return
   if (SAFE_PATHS.some((p) => path.startsWith(p))) return
 
-  if (process.env.HONEY_AUTH_DISABLED === '1') return
+  if (process.env.BADGER_AUTH_DISABLED === '1') return
 
-  const expected = process.env.HONEY_DASHBOARD_TOKEN
+  const expected = process.env.BADGER_DASHBOARD_TOKEN
   if (!expected) {
     throw createError({
       statusCode: 503,
-      statusMessage: 'Dashboard auth not configured (set HONEY_DASHBOARD_TOKEN)'
+      statusMessage: 'Dashboard auth not configured (set BADGER_DASHBOARD_TOKEN)'
     })
   }
 
@@ -41,7 +41,7 @@ export default defineEventHandler((event) => {
   const provided =
     (bearer && bearer !== auth ? bearer : '') ||
     (getQuery(event).token as string | undefined) ||
-    getCookie(event, 'honey_token') ||
+    getCookie(event, 'badger_token') ||
     ''
 
   if (!provided || !timingSafeEqual(provided, expected)) {

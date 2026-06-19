@@ -2,15 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://disane87.github.io/honey/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://disane87.github.io/honey/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://disane87.github.io/honey/de/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://disane87.github.io/honey/"/>
+    <loc>https://disane87.github.io/badger/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://disane87.github.io/badger/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://disane87.github.io/badger/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://disane87.github.io/badger/"/>
   </url>
   <url>
-    <loc>https://disane87.github.io/honey/de/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://disane87.github.io/honey/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://disane87.github.io/honey/de/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://disane87.github.io/honey/"/>
+    <loc>https://disane87.github.io/badger/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://disane87.github.io/badger/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://disane87.github.io/badger/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://disane87.github.io/badger/"/>
   </url>
 </urlset>

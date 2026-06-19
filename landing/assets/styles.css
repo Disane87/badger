@@ -1,4 +1,4 @@
-/* hon.ey landing page - shares the honey design language with the app (DESIGN_PRD.md) */
+/* Badger landing page - shares the dark+honey design language with the app (DESIGN_PRD.md) */
 
 /* ---------- self-hosted fonts ---------- */
 @font-face { font-family: "Fraunces"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/fraunces-400.woff2") format("woff2"); }
@@ -11,31 +11,31 @@
 
 /* ---------- tokens ---------- */
 :root {
-  --bg: #fdf7ec;
-  --bg-tint: #fbeed6;
-  --surface: #ffffff;
-  --surface-2: #fffaf0;
-  --border: #f0e2c8;
-  --border-strong: #e7d4ad;
+  --bg: #2e261a;
+  --bg-tint: #362d20;
+  --surface: #3d3325;
+  --surface-2: #463a2b;
+  --border: #5a4a34;
+  --border-strong: #75603f;
 
-  --ink: #2e2415;
-  --ink-soft: #6f5f45;
-  --ink-faint: #a2906f;
+  --ink: #f5ecd9;
+  --ink-soft: #c0ad8b;
+  --ink-faint: #847358;
 
   --honey: #f2a007;
-  --honey-deep: #d98309;
+  --honey-deep: #ffb73d;
   --honey-glow: #ffd166;
-  --honey-soft: #fff1cf;
+  --honey-soft: #553f1c;
 
-  --mint: #1f9d57;   --mint-soft: #e2f6ea;
-  --coral: #e05038;  --coral-soft: #fce6e0;
-  --sky: #2b7fc4;    --sky-soft: #e3f0fb;
-  --plum: #8a5bd0;   --plum-soft: #f0e8fb;
-  --burnt: #c2562f;  --burnt-soft: #fbe7da; --burnt-border: #f3cbb0;
+  --mint: #4cd17c;   --mint-soft: #1b3823;
+  --coral: #ff7a5c;  --coral-soft: #3d1d15;
+  --sky: #4ea3e3;    --sky-soft: #1a2c3d;
+  --plum: #b692ed;   --plum-soft: #2a213d;
+  --burnt: #ff9866;  --burnt-soft: #3a1f12; --burnt-border: #5a3522;
 
-  --shadow-sm: 0 1px 2px rgba(120, 88, 20, 0.06), 0 1px 3px rgba(120, 88, 20, 0.05);
-  --shadow: 0 4px 14px -4px rgba(150, 110, 30, 0.16), 0 2px 6px -2px rgba(150, 110, 30, 0.08);
-  --shadow-lg: 0 18px 40px -12px rgba(150, 110, 30, 0.28), 0 6px 14px -6px rgba(150, 110, 30, 0.12);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.5), 0 2px 6px -2px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 18px 40px -12px rgba(0, 0, 0, 0.65), 0 6px 14px -6px rgba(0, 0, 0, 0.4);
 
   --r-sm: 10px;
   --r: 16px;
@@ -60,10 +60,10 @@ body {
   text-rendering: optimizeLegibility;
   background-color: var(--bg);
   background-image:
-    radial-gradient(900px 500px at 88% -8%, rgba(255, 209, 102, 0.5) 0%, transparent 60%),
-    radial-gradient(800px 600px at -6% 8%, rgba(242, 160, 7, 0.14) 0%, transparent 55%),
-    radial-gradient(rgba(231, 212, 173, 0.55) 1.1px, transparent 1.2px);
-  background-size: auto, auto, 26px 26px;
+    radial-gradient(900px 500px at 88% -8%, rgba(255, 183, 61, 0.10) 0%, transparent 60%),
+    radial-gradient(800px 600px at -6% 8%, rgba(242, 160, 7, 0.05) 0%, transparent 55%),
+    radial-gradient(rgba(117, 96, 63, 0.20) 1.1px, transparent 1.2px);
+  background-size: auto, auto, 28px 28px;
   background-attachment: fixed;
 }
 
@@ -86,7 +86,7 @@ svg { flex-shrink: 0; }
 /* ---------- header ---------- */
 .topbar {
   position: sticky; top: 0; z-index: 30;
-  background: rgba(253, 247, 236, 0.82);
+  background: rgba(46, 38, 26, 0.85);
   -webkit-backdrop-filter: saturate(1.4) blur(10px);
   backdrop-filter: saturate(1.4) blur(10px);
   border-bottom: 1px solid var(--border);
@@ -100,16 +100,20 @@ svg { flex-shrink: 0; }
   box-shadow: 0 6px 14px -4px rgba(242, 160, 7, 0.55), inset 0 1px 0 rgba(255,255,255,.5);
   transform: rotate(-4deg);
 }
+.brand .logo--mark {
+  width: auto; height: auto; background: none; box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.55);
+  border-radius: 9px; line-height: 0;
+}
 .brand .name { font-family: var(--display); font-weight: 600; font-size: 25px; letter-spacing: -0.01em; line-height: 1; color: var(--ink); }
 .brand .name b { color: var(--honey-deep); font-weight: 600; }
-.brand .tag { font: 700 10px var(--mono); color: #8a5300; background: var(--honey-soft); border: 1px solid var(--border-strong); padding: 3px 9px; border-radius: 999px; letter-spacing: .06em; }
+.brand .tag { font: 700 10px var(--mono); color: var(--honey-deep); background: var(--honey-soft); border: 1px solid var(--border-strong); padding: 3px 9px; border-radius: 999px; letter-spacing: .06em; }
 .topbar-right { display: flex; align-items: center; gap: 12px; }
 
 /* language switcher */
 .lang-switch { display: inline-flex; background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 3px; }
 .lang-switch a { font: 700 12px var(--mono); color: var(--ink-soft); padding: 5px 11px; border-radius: 999px; letter-spacing: .04em; transition: all .15s ease; }
 .lang-switch a:hover { color: var(--ink); }
-.lang-switch a.on { background: var(--ink); color: var(--surface); }
+.lang-switch a.on { background: var(--honey); color: #15110a; }
 
 /* ---------- buttons ---------- */
 .btn {
@@ -132,7 +136,7 @@ svg { flex-shrink: 0; }
 
 /* ---------- hero ---------- */
 .hero { padding: 64px 0 36px; text-align: center; }
-.hero .eyebrow { font: 700 12px var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: #8a5300; margin-bottom: 18px; display: inline-flex; align-items: center; gap: 8px; background: var(--honey-soft); border: 1px solid var(--border-strong); padding: 6px 14px; border-radius: 999px; }
+.hero .eyebrow { font: 700 12px var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--honey-deep); margin-bottom: 18px; display: inline-flex; align-items: center; gap: 8px; background: var(--honey-soft); border: 1px solid var(--border-strong); padding: 6px 14px; border-radius: 999px; }
 .hero h1 { font-family: var(--display); font-weight: 600; font-size: clamp(40px, 6vw, 64px); line-height: 1.02; letter-spacing: -0.025em; margin: 0 0 18px; color: var(--ink); }
 .hero h1 .accent { color: var(--honey-deep); }
 .hero .lead { font-size: 19px; color: var(--ink-soft); max-width: 60ch; margin: 0 auto 28px; }
@@ -206,7 +210,7 @@ svg { flex-shrink: 0; }
 .badge.redirect { color: #1f6aa8; background: var(--sky-soft); border: 1px solid #cfe4f6; }
 .badge.clone { color: #157a42; background: var(--mint-soft); border: 1px solid #c9ecd6; }
 .badge.custom { color: #a8431f; background: var(--burnt-soft); border: 1px solid var(--burnt-border); }
-.badge.decoy { color: #8a5300; background: var(--honey-soft); border: 1px solid var(--border-strong); }
+.badge.decoy { color: var(--honey-deep); background: var(--honey-soft); border: 1px solid var(--border-strong); }
 .trap h3 { font-family: var(--display); font-weight: 600; font-size: 18px; margin: 0 0 6px; color: var(--ink); }
 .trap p { margin: 0; font-size: 14.5px; color: var(--ink-soft); }
 

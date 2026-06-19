@@ -1,31 +1,31 @@
-[![Build & publish Docker image](https://github.com/Disane87/honey/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Disane87/honey/actions/workflows/docker-publish.yml)
-[![Container](https://img.shields.io/badge/ghcr.io-honey-2496ED?logo=docker&logoColor=white)](https://github.com/Disane87/honey/pkgs/container/honey)
+[![Build & publish Docker image](https://github.com/Disane87/badger/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Disane87/badger/actions/workflows/docker-publish.yml)
+[![Container](https://img.shields.io/badge/ghcr.io-badger-2496ED?logo=docker&logoColor=white)](https://github.com/Disane87/badger/pkgs/container/badger)
 ![Nuxt](https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)
-![GitHub license](https://img.shields.io/github/license/Disane87/honey)
-![GitHub issues](https://img.shields.io/github/issues/Disane87/honey?color=red)
+![GitHub license](https://img.shields.io/github/license/Disane87/badger)
+![GitHub issues](https://img.shields.io/github/issues/Disane87/badger?color=red)
 [![semantic-release: conventionalcommits](https://img.shields.io/badge/semantic--release-conventionalcommits-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
-[![Website](https://img.shields.io/badge/website-disane87.github.io%2Fhoney-f2a007?logo=githubpages&logoColor=white)](https://disane87.github.io/honey/)
+[![Website](https://img.shields.io/badge/website-disane87.github.io%2Fbadger-f2a007?logo=githubpages&logoColor=white)](https://disane87.github.io/badger/)
 
 
-# 🍯 hon.ey URL Honeypot
+# 🦡 Badger URL Honeypot
 
-Hey there! 👋 **hon.ey** turns any link into a tripwire. Create innocent-looking URLs, plant them
+Hey there! 👋 **Badger** turns any link into a tripwire. Create innocent-looking URLs, plant them
 wherever you want to keep an eye on things, and the moment someone opens one you'll know exactly
 *who* showed up and *with what*. 🕵️‍♀️✨
 
 > [!TIP]
-> 🌐 Prefer the pretty version? There's a **[landing page](https://disane87.github.io/honey/)** (English & German) with the full tour.
+> 🌐 Prefer the pretty version? There's a **[landing page](https://disane87.github.io/badger/)** (English & German) with the full tour.
 
-![hon.ey dashboard](landing/assets/shots/dashboard.webp)
+![Badger dashboard](landing/assets/shots/dashboard.webp)
 
 Think of it as a [canary token](https://canarytokens.org/) you fully control: leaked-credential
-docs, fake internal links, "confidential" attachments, tracking pixels in emails. Drop a hon.ey
+docs, fake internal links, "confidential" attachments, tracking pixels in emails. Drop a Badger
 link and watch the metadata roll in.
 
 > [!WARNING]
 > ## 🔒 This is a defensive tool, so keep it on a leash
-> hon.ey is for **authorized** security testing and monitoring of assets *you own or are allowed to
+> Badger is for **authorized** security testing and monitoring of assets *you own or are allowed to
 > watch*. The dashboard API is gated by a shared token (see
 > [Authentication](#-authentication)) and the `custom` trap renders **raw HTML**, so still treat
 > the dashboard as sensitive: keep the token strong, run it behind a VPN or IP allowlist if you
@@ -48,7 +48,7 @@ Glad you asked! Here's the good stuff:
 - 🌍 **Geo Enrichment**: turn raw IPs into country / city / ISP (toggleable, stays local if you want)
 - 💾 **Zero-Setup Storage**: file-based persistence, no database to babysit
 - 🐳 **One-Command Docker**: prebuilt image on GHCR, ships as a tiny ~170 MB Alpine container
-- 🍯 **Actually Nice to Look At**: a warm, friendly honey-themed dashboard (no scary hacker terminal here)
+- 🦡 **Actually Nice to Look At**: a dark, calm dashboard with warm honey accents (no scary hacker terminal here)
 
 
 # 🪤 Trap Types Explained
@@ -90,15 +90,15 @@ The image is built and pushed to **GitHub Container Registry** automatically on 
 default branch and on version tags. Just pull and run:
 
 ```bash
-docker run -d --name honey \
+docker run -d --name badger \
   -p 3000:3000 \
-  -e NUXT_PUBLIC_BASE_URL=https://honey.example.com \
-  -e HONEY_DASHBOARD_TOKEN="$(openssl rand -hex 32)" \
-  -v honey-data:/app/.data \
-  ghcr.io/disane87/honey:latest
+  -e NUXT_PUBLIC_BASE_URL=https://badger.example.com \
+  -e BADGER_DASHBOARD_TOKEN="$(openssl rand -hex 32)" \
+  -v badger-data:/app/.data \
+  ghcr.io/disane87/badger:latest
 ```
 
-Then open **http://localhost:3000** and start setting traps! 🍯
+Then open **http://localhost:3000** and start setting traps! 🦡
 
 - 🔌 Listens on `:3000` (change with `-e PORT=`), binds `0.0.0.0`, runs as a non-root user
 - 💾 Trap & hit data lives in `/app/.data`, so mount a volume to keep it across restarts
@@ -108,8 +108,8 @@ Then open **http://localhost:3000** and start setting traps! 🍯
 Prefer to build it yourself?
 
 ```bash
-docker build -t honey .
-docker run -d -p 3000:3000 -v honey-data:/app/.data honey
+docker build -t badger .
+docker run -d -p 3000:3000 -v badger-data:/app/.data badger
 ```
 
 
@@ -132,7 +132,7 @@ node .output/server/index.mjs
 ```
 
 > [!IMPORTANT]
-> Put hon.ey behind a reverse proxy (nginx / Caddy / Traefik) so `X-Forwarded-For` carries the
+> Put Badger behind a reverse proxy (nginx / Caddy / Traefik) so `X-Forwarded-For` carries the
 > *real* client IP. Otherwise every hit looks like it came from your proxy. 🤷
 
 
@@ -142,10 +142,10 @@ A couple of environment variables, that's all:
 
 | Variable | Default | What it does |
 |----------|---------|--------------|
-| `NUXT_PUBLIC_BASE_URL` | *(empty)* | The public base URL for your tracking links. Set it to your domain (e.g. `https://honey.example.com`) so copied URLs point at the right place. If empty, it falls back to the browser's current origin. |
+| `NUXT_PUBLIC_BASE_URL` | *(empty)* | The public base URL for your tracking links. Set it to your domain (e.g. `https://badger.example.com`) so copied URLs point at the right place. If empty, it falls back to the browser's current origin. |
 | `NUXT_GEO_LOOKUP` | `true` | Outbound IP to geo enrichment via ip-api.com. Set `false` to stay 100% local with zero outbound calls. |
-| `HONEY_DASHBOARD_TOKEN` | *(unset)* | Shared secret guarding every `/api/*` dashboard endpoint. **Required** — if unset the server returns `503` for all API calls. See [Authentication](#-authentication). |
-| `HONEY_AUTH_DISABLED` | *(unset)* | Set to `1` to bypass `HONEY_DASHBOARD_TOKEN` entirely. **Local development only — never set in production.** |
+| `BADGER_DASHBOARD_TOKEN` | *(unset)* | Shared secret guarding every `/api/*` dashboard endpoint. **Required** — if unset the server returns `503` for all API calls. See [Authentication](#-authentication). |
+| `BADGER_AUTH_DISABLED` | *(unset)* | Set to `1` to bypass `BADGER_DASHBOARD_TOKEN` entirely. **Local development only — never set in production.** |
 | `PORT` | `3000` | Port the server listens on. |
 | `HOST` | `0.0.0.0` | Bind address. |
 
@@ -155,12 +155,12 @@ There's a ready-to-copy [`.env.example`](.env.example) too. 📝
 # 🔐 Authentication
 
 Every `/api/*` endpoint streams sensitive honeypot data — visitor IPs, request headers, the cookies
-their browser leaked, the full trap configuration. So hon.ey gates the entire dashboard API behind
+their browser leaked, the full trap configuration. So Badger gates the entire dashboard API behind
 a single shared token. It's deliberately simple: one secret, no user accounts, no session store. 🗝️
 
 ## Setting the token
 
-Generate something long and random, then hand it to the server via `HONEY_DASHBOARD_TOKEN`:
+Generate something long and random, then hand it to the server via `BADGER_DASHBOARD_TOKEN`:
 
 ```bash
 # Generate
@@ -169,7 +169,7 @@ openssl rand -hex 32
 ```
 
 > [!IMPORTANT]
-> If `HONEY_DASHBOARD_TOKEN` is **unset**, the server fails closed and answers every dashboard
+> If `BADGER_DASHBOARD_TOKEN` is **unset**, the server fails closed and answers every dashboard
 > request with `503 Dashboard auth not configured`. That's intentional — there is no "default open"
 > mode for production. 🚪
 
@@ -180,13 +180,13 @@ The middleware accepts the token from any of these (first match wins):
 | Where | How it looks |
 |-------|--------------|
 | 🏷️ Header | `Authorization: Bearer <token>` |
-| 🍪 Cookie | `honey_token=<token>` |
+| 🍪 Cookie | `badger_token=<token>` |
 | 🔗 Query  | `?token=<token>` (handy for quick `curl`, avoid in URLs you share) |
 
 Quick smoke test against a running instance:
 
 ```bash
-curl -H "Authorization: Bearer $HONEY_DASHBOARD_TOKEN" http://localhost:3000/api/traps
+curl -H "Authorization: Bearer $BADGER_DASHBOARD_TOKEN" http://localhost:3000/api/traps
 ```
 
 ## Reverse-proxy injection (recommended for prod)
@@ -196,7 +196,7 @@ header for you. Example with nginx:
 
 ```nginx
 location / {
-  proxy_pass http://honey:3000;
+  proxy_pass http://badger:3000;
   proxy_set_header Authorization "Bearer $HONEY_TOKEN_FROM_NGINX_ENV";
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 }
@@ -205,9 +205,9 @@ location / {
 …or Caddy:
 
 ```caddy
-honey.example.com {
-  reverse_proxy honey:3000 {
-    header_up Authorization "Bearer {env.HONEY_DASHBOARD_TOKEN}"
+badger.example.com {
+  reverse_proxy badger:3000 {
+    header_up Authorization "Bearer {env.BADGER_DASHBOARD_TOKEN}"
   }
 }
 ```
@@ -221,21 +221,21 @@ you want defense-in-depth. 🛡️
 
 ```bash
 # 1. Run with a throwaway token (mirrors production behavior)
-HONEY_DASHBOARD_TOKEN=dev-only npm run dev
+BADGER_DASHBOARD_TOKEN=dev-only npm run dev
 
 # 2. Skip auth entirely. Quick, but never use this in production.
-HONEY_AUTH_DISABLED=1 npm run dev
+BADGER_AUTH_DISABLED=1 npm run dev
 ```
 
 > [!CAUTION]
 > 🧨 The dashboard's Vue frontend doesn't have a login form *yet* — opening `http://localhost:3000`
 > in a browser only works when you're behind a reverse proxy that injects the header, or when
-> `HONEY_AUTH_DISABLED=1`. A proper login flow is a planned follow-up.
+> `BADGER_AUTH_DISABLED=1`. A proper login flow is a planned follow-up.
 
 
 # 🎨 The Dashboard
 
-hon.ey ships with three friendly screens:
+Badger ships with three friendly screens:
 
 - 🪤 **Traps**: your command center. Create traps, copy their URLs, see hit counts at a glance.
 - 📡 **Live Feed**: every recent visitor across all traps, auto-refreshing so you don't have to.
@@ -267,7 +267,7 @@ Built with the good stuff:
 
 # ⚠️ Legal & Ethical Note
 
-hon.ey is a **defensive** instrument. Only deploy it on assets and networks you own or are
+Badger is a **defensive** instrument. Only deploy it on assets and networks you own or are
 explicitly authorized to monitor. The geo lookup sends visitor IPs to a third-party API (disable it
 if that's a concern), the `clone` and `custom` traps can reproduce or fabricate link previews, and
 the `custom` trap renders operator-authored HTML verbatim. Don't use any of this to deceive or

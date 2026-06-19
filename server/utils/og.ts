@@ -3,7 +3,7 @@ import { isIP } from 'node:net'
 import type { CustomPreview, OgData, OgTag } from './types'
 
 const FETCH_UA =
-  'Mozilla/5.0 (compatible; hon.ey-link-preview/1.0; +https://github.com/) facebookexternalhit/1.1'
+  'Mozilla/5.0 (compatible; badger-link-preview/1.0; +https://github.com/) facebookexternalhit/1.1'
 
 const resolver = new Resolver()
 

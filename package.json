@@ -1,8 +1,8 @@
 {
-  "name": "hon-ey",
+  "name": "badger",
   "version": "1.5.1",
   "private": true,
-  "description": "hon.ey: URL honeypot / canary-token tool for tracking who opened a link and with what metadata.",
+  "description": "Badger: a stubborn URL honeypot and canary-token tool that quietly logs everyone who opens a link, and exactly how.",
   "type": "module",
   "scripts": {
     "dev": "nuxt dev",

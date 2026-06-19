@@ -172,7 +172,7 @@ function onKeydown(e: KeyboardEvent) {
               <label>{{ form.type === 'clone' ? 'Target to clone & forward to' : 'Redirect target' }}</label>
               <input v-model="form.target" placeholder="https://real-destination.example.com/login" />
               <div v-if="form.type === 'clone'" class="faint" style="font-size:13px;margin-top:8px">
-                hon.ey fetches this URL's OpenGraph/Twitter preview so the trap link looks identical when shared.
+                Badger fetches this URL's OpenGraph/Twitter preview so the trap link looks identical when shared.
               </div>
             </div>
 

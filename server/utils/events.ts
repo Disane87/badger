@@ -34,7 +34,7 @@ export function emitTrapEvent(event: TrapEvent): void {
     try {
       fn(event)
     } catch (err) {
-      console.error('[hon.ey] event listener failed', err)
+      console.error('[badger] event listener failed', err)
     }
   }
 }

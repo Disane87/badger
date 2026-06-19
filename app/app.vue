@@ -3,9 +3,9 @@
     <header class="topbar">
       <div class="container inner">
         <NuxtLink to="/" class="brand">
-          <span class="logo"><Icon name="lucide:hexagon" /></span>
-          <span class="name">hon<b>.</b>ey</span>
-          <span class="tag">HONEYPOT</span>
+          <BadgerMark :size="30" class="logo-mark" />
+          <span class="name">Badger</span>
+          <span class="tag">TRACKER</span>
         </NuxtLink>
         <nav class="nav">
           <NuxtLink to="/"><Icon name="lucide:layout-grid" /> Traps</NuxtLink>

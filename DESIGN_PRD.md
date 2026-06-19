@@ -1,7 +1,7 @@
-# Design PRD: hon.ey
+# Design PRD: Badger
 
 > **Zweck dieses Dokuments:** Eine implementierungsreife Design-Spezifikation für das
-> hon.ey-Dashboard. Es ist so geschrieben, dass ein Agent (z. B. Claude) das Design ohne
+> Badger-Dashboard. Es ist so geschrieben, dass ein Agent (z. B. Claude) das Design ohne
 > weitere Rückfragen umsetzen oder konsistent erweitern kann. Alle Werte sind verbindlich,
 > nicht beispielhaft. Wo „SOLL" steht, ist es Pflicht; „KANN" ist optional.
 
@@ -9,7 +9,7 @@
 
 ## 1. Produkt & Kontext
 
-**hon.ey** ist ein Cybersecurity-Tool (URL-Honeypot / Canary-Token). Nutzer:innen erstellen
+**Badger** ist ein Cybersecurity-Tool (URL-Honeypot / Canary-Token). Nutzer:innen erstellen
 unverdächtig aussehende Tracking-Links und sehen, *wer* sie öffnet und *mit welchen Metadaten*.
 
 - **Plattform:** Web-App, Desktop-first, responsive bis Mobile.
@@ -27,7 +27,7 @@ vertrauenswürdig** wirken, bewusst das Gegenteil eines kühlen „Hacker-Termin
 
 ## 2. Design-Prinzipien
 
-1. **Warm statt kalt.** Honig-Metapher (Name = hon.ey). Cremiges Licht-Theme, Bernstein-Akzente.
+1. **Warm statt kalt.** Honig-Metapher (Name = Badger). Cremiges Licht-Theme, Bernstein-Akzente.
 2. **Freundlich, nicht verspielt.** Runde Formen, weiche Schatten, aber präzise und professionell.
 3. **Klarheit vor Dichte.** Großzügiger Weißraum, klare Hierarchie, gut lesbare Typo.
 4. **Eine Akzentfarbe, sparsam.** Honig-Gold trägt Primäraktionen & Highlights; sonst neutral.
@@ -180,7 +180,7 @@ Drei Layer kombiniert, `background-attachment: fixed`:
 - **Header (sticky):** Höhe 70px, halbtransparenter Creme-Hintergrund mit `backdrop-filter: blur(10px)`
   (inkl. `-webkit-`-Prefix), unten 1px `--border`.
   - **Links:** Brand = Logo-Kachel (40×40, gerundet 13px, Honig-Verlauf, leicht rotiert −4°,
-    Icon in dunklem Braun) + Wortmarke `hon.ey` (display, der Punkt in `--honey-deep`) +
+    Icon in dunklem Braun) + Wortmarke `Badger` (display, der Punkt in `--honey-deep`) +
     Pille-Tag `HONEYPOT` (mono, 10px, `--honey-soft`).
   - **Rechts:** Nav-Pills mit Icon+Text. Hover: `--honey-soft`. Aktiv: dunkle Pille
     (`--ink` Hintergrund, weißer Text).

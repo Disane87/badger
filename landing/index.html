@@ -4,24 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>hon.ey - turn any link into a tripwire | URL honeypot &amp; canary tokens</title>
-  <meta name="description" content="hon.ey makes innocent-looking URLs that quietly log everyone who opens them, and exactly how. A self-hosted URL honeypot and canary-token tool with deep metadata capture, bot detection and a friendly honey-themed dashboard.">
+  <title>Badger - turn any link into a tripwire | URL honeypot &amp; canary tokens</title>
+  <meta name="description" content="Badger makes innocent-looking URLs that quietly log everyone who opens them, and exactly how. A self-hosted URL honeypot and canary-token tool with deep metadata capture, bot detection and a friendly honey-accented dashboard.">
   <meta name="theme-color" content="#F2A007">
   <meta name="robots" content="index, follow">
   <meta name="author" content="disane.de">
 
-  <link rel="canonical" href="https://disane87.github.io/honey/">
-  <link rel="alternate" hreflang="en" href="https://disane87.github.io/honey/">
-  <link rel="alternate" hreflang="de" href="https://disane87.github.io/honey/de/">
-  <link rel="alternate" hreflang="x-default" href="https://disane87.github.io/honey/">
+  <link rel="canonical" href="https://disane87.github.io/badger/">
+  <link rel="alternate" hreflang="en" href="https://disane87.github.io/badger/">
+  <link rel="alternate" hreflang="de" href="https://disane87.github.io/badger/de/">
+  <link rel="alternate" hreflang="x-default" href="https://disane87.github.io/badger/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="hon.ey">
-  <meta property="og:title" content="hon.ey - turn any link into a tripwire">
+  <meta property="og:site_name" content="Badger">
+  <meta property="og:title" content="Badger - turn any link into a tripwire">
   <meta property="og:description" content="A self-hosted URL honeypot and canary-token tool. Innocent-looking links that quietly log everyone who opens them, and exactly how.">
-  <meta property="og:url" content="https://disane87.github.io/honey/">
-  <meta property="og:image" content="https://disane87.github.io/honey/assets/og.png">
+  <meta property="og:url" content="https://disane87.github.io/badger/">
+  <meta property="og:image" content="https://disane87.github.io/badger/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_US">
@@ -29,9 +29,9 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="hon.ey - turn any link into a tripwire">
+  <meta name="twitter:title" content="Badger - turn any link into a tripwire">
   <meta name="twitter:description" content="A self-hosted URL honeypot and canary-token tool. Innocent-looking links that quietly log everyone who opens them.">
-  <meta name="twitter:image" content="https://disane87.github.io/honey/assets/og.png">
+  <meta name="twitter:image" content="https://disane87.github.io/badger/assets/og.png">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/favicon.svg">
@@ -44,12 +44,12 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "hon.ey",
+    "name": "Badger",
     "applicationCategory": "SecurityApplication",
     "operatingSystem": "Docker, Linux, Node.js",
     "description": "A self-hosted URL honeypot and canary-token tool. Create innocent-looking tracking links and see who opens them and with what metadata.",
-    "url": "https://disane87.github.io/honey/",
-    "image": "https://disane87.github.io/honey/assets/og.png",
+    "url": "https://disane87.github.io/badger/",
+    "image": "https://disane87.github.io/badger/assets/og.png",
     "inLanguage": "en",
     "license": "https://opensource.org/licenses/MIT",
     "author": { "@type": "Person", "name": "Disane", "url": "https://disane.de" },
@@ -61,18 +61,35 @@
   <header class="topbar">
     <div class="container inner">
       <a class="brand" href="./">
-        <span class="logo" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        <span class="logo logo--mark" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="brand-bg" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffd166"/>
+                <stop offset="1" stop-color="#f2a007"/>
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="14" fill="url(#brand-bg)"/>
+            <path d="M16 18 L20 14 L24 22 Z" fill="#1c160e"/>
+            <path d="M48 18 L44 14 L40 22 Z" fill="#1c160e"/>
+            <path d="M32 16 C 19 16, 14 26, 14 36 C 14 47, 22 54, 32 54 C 42 54, 50 47, 50 36 C 50 26, 45 16, 32 16 Z" fill="#1c160e"/>
+            <path d="M32 17 C 29 22, 28.5 28, 28.5 34 C 28.5 39, 29.5 44, 32 50 C 34.5 44, 35.5 39, 35.5 34 C 35.5 28, 35 22, 32 17 Z" fill="#fffaf0"/>
+            <ellipse cx="22.5" cy="33" rx="2" ry="2.6" fill="#fffaf0"/>
+            <circle cx="22.5" cy="33.6" r="1" fill="#1c160e"/>
+            <ellipse cx="41.5" cy="33" rx="2" ry="2.6" fill="#fffaf0"/>
+            <circle cx="41.5" cy="33.6" r="1" fill="#1c160e"/>
+            <ellipse cx="32" cy="46" rx="3.2" ry="2.2" fill="#1c160e"/>
+          </svg>
         </span>
-        <span class="name">hon<b>.</b>ey</span>
-        <span class="tag">HONEYPOT</span>
+        <span class="name">Badger</span>
+        <span class="tag">TRACKER</span>
       </a>
       <div class="topbar-right">
         <nav class="lang-switch" aria-label="Language">
           <a href="./" class="on" data-lang="en" hreflang="en">EN</a>
           <a href="de/" data-lang="de" hreflang="de">DE</a>
         </nav>
-        <a class="btn ghost sm" href="https://github.com/Disane87/honey" rel="noopener">
+        <a class="btn ghost sm" href="https://github.com/Disane87/badger" rel="noopener">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
           GitHub
         </a>
@@ -89,9 +106,9 @@
           Defensive canary tokens
         </span>
         <h1>Turn any link into a <span class="accent">tripwire</span>.</h1>
-        <p class="lead">hon.ey makes innocent-looking URLs that quietly note down <em>everyone</em> who opens them, and exactly how. Think of it as a canary token you fully control: drop a link and watch the metadata roll in.</p>
+        <p class="lead">Badger makes innocent-looking URLs that quietly note down <em>everyone</em> who opens them, and exactly how. Think of it as a canary token you fully control: drop a link and watch the metadata roll in.</p>
         <div class="cta-row">
-          <a class="btn primary" href="https://github.com/Disane87/honey" rel="noopener">
+          <a class="btn primary" href="https://github.com/Disane87/badger" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
             Star on GitHub
           </a>
@@ -108,9 +125,9 @@
       <div class="container">
         <div class="showcase-hero">
           <figure class="frame">
-            <div class="bar"><i></i><i></i><i></i><span class="addr">honey.example.com</span></div>
+            <div class="bar"><i></i><i></i><i></i><span class="addr">badger.example.com</span></div>
             <button type="button" class="shot" data-shot="assets/shots/dashboard.webp" aria-label="Enlarge dashboard screenshot">
-              <img src="assets/shots/dashboard.webp" width="1600" height="781" alt="hon.ey dashboard showing active traps, hit counts and trap cards in the warm honey theme" loading="lazy" decoding="async">
+              <img src="assets/shots/dashboard.webp" width="1600" height="781" alt="Badger dashboard showing active traps, hit counts and trap cards in the dark theme with honey accents" loading="lazy" decoding="async">
             </button>
           </figure>
         </div>
@@ -297,11 +314,11 @@
               Copy
             </button>
             <pre><code id="docker-cmd"><span class="c"># pull and run the prebuilt image</span>
-docker run -d --name honey <span class="f">\</span>
+docker run -d --name badger <span class="f">\</span>
   -p 3000:3000 <span class="f">\</span>
-  -e NUXT_PUBLIC_BASE_URL=https://honey.example.com <span class="f">\</span>
-  -v honey-data:/app/.data <span class="f">\</span>
-  ghcr.io/disane87/honey:latest</code></pre>
+  -e NUXT_PUBLIC_BASE_URL=https://badger.example.com <span class="f">\</span>
+  -v badger-data:/app/.data <span class="f">\</span>
+  ghcr.io/disane87/badger:latest</code></pre>
           </div>
           <p class="hint">Put it behind a reverse proxy so <code>X-Forwarded-For</code> carries the real client IP. The dashboard has no auth yet, so keep it on a leash.</p>
         </div>
@@ -315,7 +332,7 @@ docker run -d --name honey <span class="f">\</span>
           <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
           <div>
             <h3>A defensive tool, so keep it on a leash</h3>
-            <p>hon.ey is for authorized security testing and monitoring of assets you own or are allowed to watch. Tracking or cloaked links against third parties without consent may break privacy law, and impersonating a brand you do not control is plain phishing. Be a good human.</p>
+            <p>Badger is for authorized security testing and monitoring of assets you own or are allowed to watch. Tracking or cloaked links against third parties without consent may break privacy law, and impersonating a brand you do not control is plain phishing. Be a good human.</p>
           </div>
         </div>
       </div>
@@ -334,7 +351,7 @@ docker run -d --name honey <span class="f">\</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
           Blog
         </a>
-        <a href="https://github.com/Disane87/honey" rel="noopener">
+        <a href="https://github.com/Disane87/badger" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
           GitHub
         </a>

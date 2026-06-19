@@ -22,7 +22,7 @@ ENV NODE_ENV=production \
     # Outbound IP -> geo enrichment (set to false for fully local operation)
     NUXT_GEO_LOOKUP=true
     # Public base URL for generated tracking links — set at runtime, e.g.
-    #   -e NUXT_PUBLIC_BASE_URL=https://honey.example.com
+    #   -e NUXT_PUBLIC_BASE_URL=https://badger.example.com
 
 # The Nitro output bundles everything it needs; no node_modules required.
 COPY --from=build /app/.output ./.output

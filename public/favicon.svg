@@ -4,24 +4,15 @@
       <stop offset="0" stop-color="#ffd166"/>
       <stop offset="1" stop-color="#f2a007"/>
     </linearGradient>
-    <linearGradient id="drop" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#7a4d05"/>
-      <stop offset="1" stop-color="#4a3505"/>
-    </linearGradient>
   </defs>
   <rect width="64" height="64" rx="14" fill="url(#bg)"/>
-  <path
-    d="M32 9 L52 20.5 L52 43.5 L32 55 L12 43.5 L12 20.5 Z"
-    fill="none"
-    stroke="#4a3505"
-    stroke-opacity="0.85"
-    stroke-width="4"
-    stroke-linejoin="round"/>
-  <path
-    d="M32 22
-       C 28 30, 24 34, 24 39
-       a 8 8 0 0 0 16 0
-       C 40 34, 36 30, 32 22 Z"
-    fill="url(#drop)"/>
-  <ellipse cx="29.5" cy="37.5" rx="2.2" ry="3" fill="#ffe79a" opacity="0.7"/>
+  <path d="M16 18 L20 14 L24 22 Z" fill="#1c160e"/>
+  <path d="M48 18 L44 14 L40 22 Z" fill="#1c160e"/>
+  <path d="M32 16 C 19 16, 14 26, 14 36 C 14 47, 22 54, 32 54 C 42 54, 50 47, 50 36 C 50 26, 45 16, 32 16 Z" fill="#1c160e"/>
+  <path d="M32 17 C 29 22, 28.5 28, 28.5 34 C 28.5 39, 29.5 44, 32 50 C 34.5 44, 35.5 39, 35.5 34 C 35.5 28, 35 22, 32 17 Z" fill="#fffaf0"/>
+  <ellipse cx="22.5" cy="33" rx="2" ry="2.6" fill="#fffaf0"/>
+  <circle cx="22.5" cy="33.6" r="1" fill="#1c160e"/>
+  <ellipse cx="41.5" cy="33" rx="2" ry="2.6" fill="#fffaf0"/>
+  <circle cx="41.5" cy="33.6" r="1" fill="#1c160e"/>
+  <ellipse cx="32" cy="46" rx="3.2" ry="2.2" fill="#1c160e"/>
 </svg>
