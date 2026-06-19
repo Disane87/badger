@@ -5,7 +5,7 @@ import { trapUrls, usePublicOrigin } from '~/composables/useFormat'
 const route = useRoute()
 const id = route.params.id as string
 const { data, refresh, pending } = await useFetch<{ trap: Trap; hits: Hit[] }>(`/api/traps/${id}`)
-const { relTime, absTime, geoLabel, uaLabel } = useFormat()
+const { relTime, absTime, geoLabel, uaLabel, flagIcon, hasCoords, mapUrl } = useFormat()
 
 const origin = usePublicOrigin()
 const expanded = ref<string | null>(null)
@@ -174,7 +174,7 @@ onBeforeUnmount(() => clearInterval(poll))
             <tr class="clickable" @click="toggle(h.id)">
               <td :title="absTime(h.ts)" data-allow-mismatch>{{ relTime(h.ts) }}</td>
               <td class="code">{{ h.ip }}</td>
-              <td>{{ geoLabel(h) }}</td>
+              <td><span class="geo-cell"><Icon :name="flagIcon(h)" class="flag" /> {{ geoLabel(h) }}</span></td>
               <td>{{ uaLabel(h) }}</td>
               <td>
                 <span class="badge" :class="h.isBot ? 'bot' : 'human'">
@@ -184,6 +184,13 @@ onBeforeUnmount(() => clearInterval(poll))
             </tr>
             <tr v-if="expanded === h.id">
               <td colspan="5" style="background: var(--surface-2);">
+                <div v-if="hasCoords(h)" class="hit-map">
+                  <iframe :src="mapUrl(h)" title="Hit location" loading="lazy"></iframe>
+                  <div class="hit-map-pill">
+                    <Icon :name="flagIcon(h)" class="flag" />
+                    {{ geoLabel(h) }}<template v-if="h.geo?.isp"> · {{ h.geo.isp }}</template>
+                  </div>
+                </div>
                 <div class="row" style="gap: 32px; padding: 8px 4px 16px;">
                   <dl class="kv" style="flex:1; min-width: 280px;">
                     <dt>Timestamp</dt><dd>{{ absTime(h.ts) }}</dd>

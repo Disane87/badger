@@ -237,6 +237,14 @@ tr.clickable:hover td { background: var(--surface-2); }
 .kv dd { margin: 0; font-family: var(--mono); font-size: 12.5px; word-break: break-word; color: var(--ink); }
 .headers-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 14px 16px; font-family: var(--mono); font-size: 12px; max-height: 320px; overflow: auto; white-space: pre-wrap; word-break: break-all; color: var(--ink-soft); }
 
+/* ---------- geo / flag + map ---------- */
+.geo-cell { display: inline-flex; align-items: center; gap: 7px; }
+.flag { font-size: 16px; border-radius: 999px; flex-shrink: 0; }
+.hit-map { position: relative; border: 1px solid var(--border); border-radius: var(--r-sm); overflow: hidden; margin: 8px 4px 16px; }
+.hit-map iframe { width: 100%; height: 200px; border: 0; display: block; }
+.hit-map-pill { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 8px; background: rgba(46, 36, 21, .88); color: #fff; padding: 7px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 600; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.hit-map-pill .flag { font-size: 16px; }
+
 /* ---------- cloned OG preview card ---------- */
 .og-card { display: flex; flex-direction: column; max-width: 540px; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--surface-2); box-shadow: var(--shadow-sm); }
 .og-img { width: 100%; max-height: 260px; object-fit: cover; display: block; background: var(--bg-tint); }

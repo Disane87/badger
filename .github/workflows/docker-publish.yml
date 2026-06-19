@@ -1,9 +1,10 @@
-name: Build & publish Docker image
+name: Validate Docker build
+
+# Release images are published by release.yml (semantic-release driven).
+# This workflow only validates that the image still builds on pull requests,
+# and lets you build/push an ad-hoc image manually when needed.
 
 on:
-  push:
-    branches: [main, master]
-    tags: ['v*.*.*']
   pull_request:
     branches: [main, master]
   workflow_dispatch:
@@ -21,16 +22,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # GHCR image names must be lowercase — derive from owner/repo.
+      # GHCR image names must be lowercase; derive from owner/repo.
       - name: Compute lowercase image name
         run: echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # Only log in / push for real events, never for fork pull requests.
+      # Only log in for manual runs (which push); pull requests build only.
       - name: Log in to GHCR
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_dispatch'
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
@@ -43,18 +44,15 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=ref,event=branch
             type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
             type=sha,format=short
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=edge,enable=${{ github.event_name == 'workflow_dispatch' }}
 
-      - name: Build and push
+      - name: Build (and push on manual run)
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'workflow_dispatch' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha

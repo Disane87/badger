@@ -4,6 +4,7 @@
 ![Vue](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)
 ![GitHub license](https://img.shields.io/github/license/Disane87/honey)
 ![GitHub issues](https://img.shields.io/github/issues/Disane87/honey?color=red)
+[![semantic-release: conventionalcommits](https://img.shields.io/badge/semantic--release-conventionalcommits-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 
 # 🍯 hon.ey URL Honeypot
@@ -170,6 +171,26 @@ explicitly authorized to monitor. The geo lookup sends visitor IPs to a third-pa
 if that's a concern), the `clone` and `custom` traps can reproduce or fabricate link previews, and
 the `custom` trap renders operator-authored HTML verbatim. Don't use any of this to deceive or
 impersonate third parties, because that crosses into phishing and is illegal in most places. 🙏
+
+
+# 🚀 Releases
+
+Versioning is fully automated with [semantic-release](https://semantic-release.gitbook.io/). Every
+push to `main` is analyzed, and your [Conventional Commits](https://www.conventionalcommits.org/)
+decide what happens next:
+
+- 🐛 `fix:` → patch release (1.0.**1**)
+- ✨ `feat:` → minor release (1.**1**.0)
+- 💥 `feat!:` or a `BREAKING CHANGE:` footer → major release (**2**.0.0)
+- 🧹 `chore:`, `docs:`, `refactor:`, `test:` and friends → no release
+
+When a release is cut, the pipeline automatically:
+
+1. 🏷️ Tags the commit and creates a **GitHub Release** with generated notes
+2. 📝 Updates [`CHANGELOG.md`](CHANGELOG.md) and the version in `package.json`
+3. 🐳 Builds and pushes the Docker image to GHCR as `:x.y.z`, `:x.y`, and `:latest`
+
+So just write good commit messages and let the robots do the boring part! 🤖✨
 
 
 # 📄 License

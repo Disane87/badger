@@ -3,7 +3,7 @@ import type { Hit, Trap } from '~~/server/utils/types'
 
 const { data: hits, refresh } = await useFetch<Hit[]>('/api/hits')
 const { data: traps } = await useFetch<Trap[]>('/api/traps')
-const { relTime, absTime, geoLabel, uaLabel } = useFormat()
+const { relTime, absTime, geoLabel, uaLabel, flagIcon } = useFormat()
 
 const trapName = (id: string) => traps.value?.find(t => t.id === id)?.name || 'unknown trap'
 
@@ -40,7 +40,7 @@ onBeforeUnmount(() => clearInterval(poll))
             <td :title="absTime(h.ts)" data-allow-mismatch>{{ relTime(h.ts) }}</td>
             <td><span style="font-weight:600">{{ trapName(h.trapId) }}</span></td>
             <td class="code">{{ h.ip }}</td>
-            <td>{{ geoLabel(h) }}</td>
+            <td><span class="geo-cell"><Icon :name="flagIcon(h)" class="flag" /> {{ geoLabel(h) }}</span></td>
             <td>{{ uaLabel(h) }}</td>
             <td>
               <span class="badge" :class="h.isBot ? 'bot' : 'human'">
