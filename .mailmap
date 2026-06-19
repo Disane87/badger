@@ -1,0 +1,4 @@
+# Map the semantic-release-bot's automated release commits back to the
+# project owner so GitHub's Contributors panel and `git shortlog` show
+# a single human author instead of bot noise.
+Marco Franke <mfranke87@icloud.com> semantic-release-bot <semantic-release-bot@martynus.net>
