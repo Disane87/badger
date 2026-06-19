@@ -8,8 +8,8 @@ export default defineNuxtConfig({
   modules: ['@nuxt/icon'],
 
   icon: {
-    // Bundle the Lucide collection so icons resolve locally (no outbound CDN).
-    serverBundle: { collections: ['lucide'] }
+    // Bundle the Lucide + circle-flags collections so icons resolve locally (no outbound CDN).
+    serverBundle: { collections: ['lucide', 'circle-flags'] }
   },
 
   app: {
