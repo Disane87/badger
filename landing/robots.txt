@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://disane87.github.io/honey/sitemap.xml
