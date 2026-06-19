@@ -1,6 +1,6 @@
 {
   "name": "hon-ey",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "private": true,
   "description": "hon.ey: URL honeypot / canary-token tool for tracking who opened a link and with what metadata.",
   "type": "module",
