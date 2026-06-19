@@ -318,6 +318,13 @@ details[open] summary { margin-bottom: 10px; }
 .modal-enter-from, .modal-leave-to { opacity: 0; }
 .modal-enter-from .modal, .modal-leave-to .modal { transform: translateY(16px) scale(.98); opacity: 0; }
 
+/* Wide variant for trap-detail-in-modal: roomy enough for the hit table. */
+.modal--wide { max-width: 1080px; position: relative; }
+.modal-body--detail { padding: 28px 32px 32px; }
+.modal-x--floating {
+  position: absolute; top: 18px; right: 18px; z-index: 1;
+}
+
 /* responsive */
 @media (max-width: 760px) {
   h1 { font-size: 30px; }

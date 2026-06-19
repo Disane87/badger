@@ -14,6 +14,8 @@ const totalHits = computed(() => (traps.value || []).reduce((a, t) => a + (t.hit
 // modal state — create when editing is null, edit when set
 const modalOpen = ref(false)
 const editing = ref<Trap | null>(null)
+const detailOpen = ref(false)
+const detailTrapId = ref<string | null>(null)
 const toast = ref('')
 
 const TYPE_META: Record<string, { icon: string; label: string }> = {
@@ -33,6 +35,15 @@ function openEdit(t: Trap, ev: Event) {
   ev.stopPropagation()
   editing.value = t
   modalOpen.value = true
+}
+function openDetail(t: Trap) {
+  detailTrapId.value = t.id
+  detailOpen.value = true
+}
+function closeDetail() {
+  detailOpen.value = false
+  // Keep the id around for the leave transition; clear after.
+  setTimeout(() => { detailTrapId.value = null }, 250)
 }
 
 /** Replace-or-insert a trap in the local list, keeping newest-first order. */
@@ -135,7 +146,7 @@ function flash(msg: string) {
         :key="t.id"
         class="trap-card"
         :style="{ animationDelay: i * 0.04 + 's' }"
-        @click="navigateTo(`/traps/${t.id}`)"
+        @click="openDetail(t)"
       >
         <div class="head">
           <div class="title">{{ t.name }}</div>
@@ -160,6 +171,8 @@ function flash(msg: string) {
     </div>
 
     <TrapModal :open="modalOpen" :trap="editing" @close="modalOpen = false" @saved="onSaved" />
+
+    <TrapDetailModal :open="detailOpen" :trap-id="detailTrapId" @close="closeDetail" />
 
     <Transition name="fade">
       <div v-if="toast" class="toast"><Icon name="lucide:check" /> {{ toast }}</div>
