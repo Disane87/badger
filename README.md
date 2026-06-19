@@ -2,8 +2,8 @@
 [![Container](https://img.shields.io/badge/ghcr.io-badger-2496ED?logo=docker&logoColor=white)](https://github.com/Disane87/badger/pkgs/container/badger)
 ![Nuxt](https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)
-![GitHub license](https://img.shields.io/github/license/Disane87/badger)
-![GitHub issues](https://img.shields.io/github/issues/Disane87/badger?color=red)
+[![GitHub license](https://img.shields.io/github/license/Disane87/badger)](https://github.com/Disane87/badger/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/Disane87/badger?color=red)](https://github.com/Disane87/badger/issues)
 [![semantic-release: conventionalcommits](https://img.shields.io/badge/semantic--release-conventionalcommits-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 [![Website](https://img.shields.io/badge/website-disane87.github.io%2Fbadger-f2a007?logo=githubpages&logoColor=white)](https://disane87.github.io/badger/)
 
