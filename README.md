@@ -297,3 +297,9 @@ So just write good commit messages and let the robots do the boring part! 🤖�
 # 📄 License
 
 [MIT](LICENSE). Do good things with it.
+
+---
+
+<p align="center">
+  Made by me at <a href="https://subthiel.eu/softwareentwicklung">Subthiel</a> — software development &amp; 3D printing
+</p>
